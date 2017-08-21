@@ -3,7 +3,21 @@
  * Front controller
  */
 
-require 'Core/Router.class.php';
+//require '../Core/Router.class.php';
+//
+//require '../App/Controllers/AuthorizationModel.class.php';
+//require '../App/Controllers/User.class.php';
+
+/*
+ * Autoloader
+ */
+spl_autoload_register(function ($class) {
+	$root = dirname(__DIR__); // get the parent directory
+	$file = $root . '/' . str_replace('\\', '/', $class) . '.class.php';
+	if (is_readable($file)) {
+		require $root . '/' . str_replace('\\', '/', $class) . '.class.php';
+	}
+});
 
 $router = new Core\Router();
 $url = $_SERVER['QUERY_STRING'];
@@ -19,10 +33,11 @@ $router->add('user', ['controller' => 'User', 'action' => 'index']);
 //$router->add('user/like', ['controller' => 'User', 'action' => 'like']);
 $router->add('{controller}/{action}');
 
-if ($router->match($url)) {
-    echo "<pre>";
-    print_r($router->getParams());
-    echo "</pre>";
-} else {
-    echo "<h1>404</h1>";
-}
+$router->dispatch($url);
+//	if (class_exists($params['controller'])) {
+//		$obj = new $params['controller'];
+//		$obj->$params['action']();
+//	}
+//	else {
+//		echo "Didnt find Class";
+//	}
