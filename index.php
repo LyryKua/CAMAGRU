@@ -9,11 +9,11 @@ $router = new Core\Router();
 $url = $_SERVER['QUERY_STRING'];
 
 // Adding routes to the routing table
-//$router->add('', ['controller' => 'Home', 'action' => 'index']);
-//$router->add('sign-up', ['controller' => 'AuthorizationModel', 'action' => 'signUp']);
-//$router->add('log-in', ['controller' => 'AuthorizationModel', 'action' => 'logIn']);
-//$router->add('log-out', ['controller' => 'AuthorizationModel', 'action' => 'logOut']);
-//$router->add('user', ['controller' => 'User', 'action' => 'index']);
+$router->add('', ['controller' => 'Home', 'action' => 'index']);
+$router->add('sign-up', ['controller' => 'AuthorizationModel', 'action' => 'signUp']);
+$router->add('log-in', ['controller' => 'AuthorizationModel', 'action' => 'logIn']);
+$router->add('log-out', ['controller' => 'AuthorizationModel', 'action' => 'logOut']);
+$router->add('user', ['controller' => 'User', 'action' => 'index']);
 //$router->add('user/add', ['controller' => 'User', 'action' => 'add']);
 //$router->add('user/del', ['controller' => 'User', 'action' => 'del']);
 //$router->add('user/like', ['controller' => 'User', 'action' => 'like']);

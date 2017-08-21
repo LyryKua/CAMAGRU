@@ -32,18 +32,14 @@ class Router
      */
     public function add($route, $params = [])
     {
-        echo "0) " . $route . "<br>";
         // Convert the route to a regular expression: escape forward slashes
         $route = preg_replace('/\//', '\\/', $route);
-        echo "1) " . $route . "<br>";
 
         // Convert variables e.g. {controller}
 		$route = preg_replace('/\{([\da-z-]+)\}/', '(?P<\1>[\da-z-]+)', $route);
-        echo "2) " . $route . "<br>";
 
         // Add start and end delimiters, and case insensitive flag
         $route = '/^' . $route . '$/i';
-        echo "3) " . $route . "<br>";
 
         $this->routes[$route] = $params;
     }
