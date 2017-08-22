@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: khrechen
@@ -11,20 +10,44 @@ namespace App\Controllers;
 
 /**
  * Class User
+ *
+ * @package App\Controllers
  */
-class User
+class User extends \Core\Controller
 {
-	public function addNew()
+	public function indexAction()
+	{
+		echo "Hello from User-index";
+	}
+	/**
+	 * add new picture
+	 *
+	 * @return void
+	 */
+	public function addNewAction()
 	{
 		echo "adding new user";
+		echo "<p>Query string parameters:<pre>" .
+			htmlspecialchars(print_r($this->params)) . "</pre></p>";
+
 	}
 
-	public function del()
+	/**
+	 * del an own picture
+	 *
+	 * @return void
+	 */
+	public function delAction()
 	{
 		echo "deleting new user";
 	}
 
-	public function like()
+	/**
+	 * like a picture
+	 *
+	 * @return void
+	 */
+	public function likeAction()
 	{
 		echo "user liked a photo";
 	}

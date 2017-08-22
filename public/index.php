@@ -20,7 +20,7 @@ spl_autoload_register(function ($class) {
 });
 
 $router = new Core\Router();
-$url = $_SERVER['QUERY_STRING'];
+$url = trim($_SERVER['QUERY_STRING'], '/');
 
 // Adding routes to the routing table
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
@@ -32,8 +32,10 @@ $router->add('user', ['controller' => 'User', 'action' => 'index']);
 //$router->add('user/del', ['controller' => 'User', 'action' => 'del']);
 //$router->add('user/like', ['controller' => 'User', 'action' => 'like']);
 $router->add('{controller}/{action}');
+$router->add('{controller}/{id}/{action}');
 
 $router->dispatch($url);
+
 //	if (class_exists($params['controller'])) {
 //		$obj = new $params['controller'];
 //		$obj->$params['action']();

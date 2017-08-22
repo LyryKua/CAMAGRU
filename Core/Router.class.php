@@ -117,13 +117,14 @@ class Router
 	 */
 	public function dispatch($url)
 	{
+		$url = $this->removeQueryStringVariables($url);
 		if ($this->match($url)) {
 			$controller = $this->params['controller'];
 			$controller = $this->convertToStudlyCaps($controller);
 			$controller = "App\\Controllers\\$controller";
 
 			if (class_exists($controller)) {
-				$obj = new $controller();
+				$obj = new $controller($this->params);
 
 				$action = $this->params['action'];
 				$action = $this->convertToCamelCase($action);
@@ -164,5 +165,41 @@ class Router
 	private function convertToCamelCase($str)
 	{
 		return lcfirst($this->convertToStudlyCaps($str));
+	}
+
+	/**
+	 * Remove the query string varables from the URL (if ane). As the full
+	 * query string is used for the route, ane variavles at the end will need
+	 * to be removed before the route is matched to the routing table. For
+	 * example:
+	 *
+	 * 			URL					|  $_SERVER['QUERY_STRING']	|	Route
+	 * 	----------------------------------------------------------------------
+	 * localhost					|	''						|	''
+	 * localhost/?					|	''						|	''
+	 * localhost/?page=1			|	page=1					|	''
+	 * localhost/posts?page=1		|	posts/&page=1			|	posts
+	 * localhost/posts/index		|	posts/index				|	posts/index
+	 * localhost/posts/index?page=1	|	posts/index&page=1		|	posts/index
+	 *
+	 * A URL of the format localhost/?page (one variable name, no value) won't
+	 * work however. (NB. The .htaccess file converts the first ? to a & when
+	 * it's passed throught to the $_SERVER variable).
+	 *
+	 * @param string $url The full URL
+	 *
+	 * @return string The URL without query sting
+	 */
+	protected function removeQueryStringVariables($url)
+	{
+		if ($url != '') {
+			$parts = explode('&', $url, 2);
+			if (strpos($parts[0], '=') === false) {
+				$url = $parts[0];
+			} else {
+				$url = '';
+			}
+		}
+		return $url;
 	}
 }

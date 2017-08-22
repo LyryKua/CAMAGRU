@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: khrechen
@@ -7,21 +6,23 @@
  * Time: 11:36
  */
 
+namespace App\Controllers;
+
 /**
  * Class AuthorizationModel
  *
+ * @package App\Controllers
+ *
  * Відповідає за авторизацію, створення користувача та вихід
  */
-
-namespace App\Controllers;
-
-class AuthorizationModel
+class AuthorizationModel extends \Core\Controller
 {
 	/**
 	 * This func sign-in an user
 	 *
+	 * @return void
 	 */
-	public function logIn()
+	public function logInAction()
 	{
 		echo "ligIn";
 	}
@@ -29,8 +30,9 @@ class AuthorizationModel
 	/**
 	 * This func create a new user
 	 *
+	 * @return void
 	 */
-	public function signUp()
+	public function signUpAction()
 	{
 		echo "signUp";
 	}
@@ -38,9 +40,10 @@ class AuthorizationModel
 	/**
 	 * This func sign-out an user
 	 *
+	 * @return void
 	 */
-	public function logOut()
+	public function logOutAction()
 	{
-		echo "ligOu";
+		echo "logOut";
 	}
 }
