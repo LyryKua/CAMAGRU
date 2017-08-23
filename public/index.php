@@ -32,7 +32,7 @@ $router->add('user', ['controller' => 'User', 'action' => 'index']);
 //$router->add('user/del', ['controller' => 'User', 'action' => 'del']);
 //$router->add('user/like', ['controller' => 'User', 'action' => 'like']);
 $router->add('{controller}/{action}');
-$router->add('{controller}/{id}/{action}');
+//$router->add('{controller}/{id}/{action}');
 
 $router->dispatch($url);
 

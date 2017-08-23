@@ -24,7 +24,7 @@ class AuthorizationModel extends \Core\Controller
 	 */
 	public function logInAction()
 	{
-		echo "ligIn";
+		echo "logIn";
 	}
 
 	/**

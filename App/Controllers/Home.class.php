@@ -8,6 +8,8 @@
 
 namespace App\Controllers;
 
+use \Core\View;
+
 /**
  * Class Home
  *
@@ -16,14 +18,27 @@ namespace App\Controllers;
 class Home extends \Core\Controller
 {
 	/**
+	 * @return void
+	 */
+	protected function before()
+	{
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function after()
+	{
+	}
+
+	/**
 	 * this func shows list of all picture in DB
 	 *
 	 * @return void
 	 */
 	public function indexAction()
 	{
-		echo "list of all picture";
-//		echo "<p>Query string parameters:<pre>" . htmlspecialchars(print_r($_GET, true)) . "</pre></p>";
+		View::render('index.php');
 	}
 
 	/**
@@ -31,7 +46,7 @@ class Home extends \Core\Controller
 	 *
 	 * @return void
 	 */
-	public function show()
+	public function showAction()
 	{
 		echo "Showed a single post!";
 	}
