@@ -1,0 +1,25 @@
+BODY {
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+}
+
+HEADER {
+    position: fixed;
+    width: 100%;
+    height: 77px;
+    background: #ffffff;
+}
+
+HEADER > DIV {
+    width: 10%;
+    color: red;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+IMG {
+    width: auto;
+    height: 100%;
+}
