@@ -25,6 +25,7 @@ DIV.add {
 
 DIV.add > IMG, DIV.user > IMG{
     width: 64px;
+    height: 64px;
 }
 
 DIV.user {
