@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../public/styles/blocks/header.css">
+    <link rel="stylesheet" type="text/css" href="../../public/styles/html.css">
     <title>camagru</title>
-    <link rel="stylesheet" type="text/css" href="styles/index.css">
 </head>
 <body>
-<header>
-    <div class="first">
-        <img src="icons/add_new.svg">
-    </div>
-    <div class="second">camagru</div>
-    <div class="third"><img src="icons/user.svg"></div>
-</header>
+    <?php require_once('blocks/header.php'); ?>
+    <p> CONTENT </p>
+    <?php require_once('blocks/footer.php'); ?>
 </body>
 </html>
