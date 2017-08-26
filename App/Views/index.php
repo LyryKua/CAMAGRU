@@ -9,7 +9,12 @@
 </head>
 <body>
     <?php require_once('blocks/header.php'); ?>
-	<?php require_once('blocks/content.php'); ?>
+    <p>Hello <?php echo htmlspecialchars($name); ?>!</p>
+    <ul>
+        <?php foreach ($colors as $value): ?>
+            <li><?php echo htmlspecialchars($value) ?>;</li>
+        <?php endforeach; ?>
+    </ul>
     <?php require_once('blocks/footer.php'); ?>
 </body>
 </html>

@@ -38,7 +38,10 @@ class Home extends \Core\Controller
 	 */
 	public function indexAction()
 	{
-		View::render('index.php');
+		View::render('index.php', [
+			'colors'	=>	['red', 'blue', 'green'],
+			'name'		=>	'LyryK.ua'
+		]);
 	}
 
 	/**
