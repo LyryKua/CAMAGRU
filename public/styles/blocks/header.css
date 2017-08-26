@@ -10,7 +10,7 @@ DIV.logo {
     padding: 18px 0 6px;
 }
 
-DIV.logo > IMG {
+DIV.logo IMG {
     display: block;
     margin: auto;
     width: 426px;
@@ -23,7 +23,7 @@ DIV.add {
     left: 35px;
 }
 
-DIV.add > IMG, DIV.user > IMG{
+DIV.add IMG, DIV.user IMG{
     width: 64px;
     height: 64px;
 }

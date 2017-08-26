@@ -7,6 +7,7 @@
  */
 
 namespace App\Controllers;
+use Core\View;
 
 /**
  * Class AuthorizationModel
@@ -24,7 +25,9 @@ class AuthorizationModel extends \Core\Controller
 	 */
 	public function logInAction()
 	{
-		echo "logIn";
+		View::render('AuthorizationModel/log-in.php', [
+			'title'		=>	'camagru | Log in'
+		]);
 	}
 
 	/**

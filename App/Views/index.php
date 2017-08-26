@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/styles/blocks/header.css">
     <link rel="stylesheet" type="text/css" href="/styles/blocks/footer.css">
     <link rel="stylesheet" type="text/css" href="/styles/html.css">
-    <title>camagru</title>
+    <title><?php echo htmlspecialchars($title); ?></title>
 </head>
 <body>
     <?php require_once('blocks/header.php'); ?>
