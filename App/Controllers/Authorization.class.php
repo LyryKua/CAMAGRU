@@ -10,13 +10,13 @@ namespace App\Controllers;
 use Core\View;
 
 /**
- * Class AuthorizationModel
+ * Class Authorization
  *
  * @package App\Controllers
  *
  * Відповідає за авторизацію, створення користувача та вихід
  */
-class AuthorizationModel extends \Core\Controller
+class Authorization extends \Core\Controller
 {
 	/**
 	 * This func sign-in an user
@@ -25,7 +25,7 @@ class AuthorizationModel extends \Core\Controller
 	 */
 	public function logInAction()
 	{
-		View::render('AuthorizationModel/log-in.php', [
+		View::render('Authorization/log-in.php', [
 			'title'		=>	'camagru | Log in'
 		]);
 	}

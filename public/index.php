@@ -3,11 +3,6 @@
  * Front controller
  */
 
-//require '../Core/Router.class.php';
-//
-//require '../App/Controllers/AuthorizationModel.class.php';
-//require '../App/Controllers/User.class.php';
-
 /*
  * Autoloader
  */
@@ -24,22 +19,11 @@ $url = trim($_SERVER['QUERY_STRING'], '/');
 
 // Adding routes to the routing table
 $router->add('', ['controller' => 'Home', 'action' => 'index']);
-$router->add('sign-up', ['controller' => 'AuthorizationModel', 'action' => 'signUp']);
-$router->add('log-in', ['controller' => 'AuthorizationModel', 'action' => 'logIn']);
-$router->add('log-out', ['controller' => 'AuthorizationModel', 'action' => 'logOut']);
+$router->add('sign-up', ['controller' => 'Authorization', 'action' => 'signUp']);
+$router->add('log-in', ['controller' => 'Authorization', 'action' => 'logIn']);
+$router->add('log-out', ['controller' => 'Authorization', 'action' => 'logOut']);
 $router->add('user', ['controller' => 'User', 'action' => 'index']);
-//$router->add('user/add', ['controller' => 'User', 'action' => 'add']);
-//$router->add('user/del', ['controller' => 'User', 'action' => 'del']);
-//$router->add('user/like', ['controller' => 'User', 'action' => 'like']);
 $router->add('{controller}/{action}');
 //$router->add('{controller}/{id}/{action}');
 
 $router->dispatch($url);
-
-//	if (class_exists($params['controller'])) {
-//		$obj = new $params['controller'];
-//		$obj->$params['action']();
-//	}
-//	else {
-//		echo "Didnt find Class";
-//	}
