@@ -37,7 +37,9 @@ class Authorization extends \Core\Controller
 	 */
 	public function signUpAction()
 	{
-		echo "signUp";
+		View::render('Authorization/sign-up.php', [
+			'title'		=>	'camagru | Sign up'
+		]);
 	}
 
 	/**

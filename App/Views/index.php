@@ -2,9 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/styles/blocks/header.css">
-    <link rel="stylesheet" type="text/css" href="/styles/blocks/footer.css">
-    <link rel="stylesheet" type="text/css" href="/styles/html.css">
+    <?php require ('blocks/link.php'); ?>
     <title><?php echo htmlspecialchars($title); ?></title>
 </head>
 <body>
