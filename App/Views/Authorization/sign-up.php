@@ -18,5 +18,7 @@
         <button type="submit">Sign up</button>
     </p>
 </form>
+<p>Have an account? <a href="/log-in">Log in</a></p>
+<?php require(dirname(__FILE__) . '/../blocks/footer.php'); ?>
 </body>
 </html>

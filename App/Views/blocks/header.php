@@ -11,6 +11,6 @@
             </form>
         </div>
 	<?php else : ?>
-        <div class="user"><a href="/log-in"><img src="icons/user.svg" class="user"></a></div>
+        <div class="user"><a href="/user"><img src="icons/user.svg" class="user"></a></div>
 	<?php endif; ?>
 </header>

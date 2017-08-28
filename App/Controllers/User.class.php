@@ -8,6 +8,9 @@
 
 namespace App\Controllers;
 
+use App\Models\UserModel;
+use \Core\View;
+
 /**
  * Class User
  *
@@ -17,8 +20,14 @@ class User extends \Core\Controller
 {
 	public function indexAction()
 	{
-		echo "Hello from User-index";
+		$users = UserModel::getAll();
+
+		View::render('User/user.php', [
+			'title' => 'camagru | All users',
+			'users' => $users
+		]);
 	}
+
 	/**
 	 * add new picture
 	 *

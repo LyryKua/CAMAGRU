@@ -7,12 +7,10 @@
 </head>
 <body>
 <?php require(dirname(__FILE__) . '/../blocks/header.php'); ?>
-<form action="#">
-    <input type="text" placeholder="Login">
-    <input type="password" placeholder="Password">
-    <button type="submit">Log in</button>
-</form>
-<p>Don't have an account? <a href="/sign-up">Sign up</a></p>
+<?php
+echo "<p>Hello, " . $users[0]['name'] . " " . $users[0]['surname'] . "<br>";
+echo "I know your email: " . $users[0]['email'] . "</p>"
+?>
 <?php require(dirname(__FILE__) . '/../blocks/footer.php'); ?>
 </body>
 </html>
