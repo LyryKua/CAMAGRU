@@ -9,6 +9,7 @@
 namespace Core;
 
 use PDO;
+use App\Configuration;
 
 /**
  * Class Model
@@ -24,14 +25,9 @@ abstract class Model
 	{
 		static $db = null;
 		if ($db === null) {
-			$host = "localhost";
-			$dbname = "camagru";
-			$user = "root";
-			$password = "256512";
-
 			try {
-				$db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8",
-					$user, $password);
+				$dsn = "mysql:host=" . Configuration::DB_HOST . ";dbname=" . Configuration::DB_NAME . ";charset=utf8";
+				$db = new PDO($dsn, Configuration::DB_USER, Configuration::DB_PASSWORD);
 				return $db;
 			} catch (\PDOException $e) {
 				echo $e->getMessage();

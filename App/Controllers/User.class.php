@@ -23,7 +23,7 @@ class User extends \Core\Controller
 		$users = UserModel::getAll();
 
 		View::render('User/user.php', [
-			'title' => 'camagru | All users',
+			'title' => 'camagru',
 			'users' => $users
 		]);
 	}
@@ -35,10 +35,9 @@ class User extends \Core\Controller
 	 */
 	public function addNewAction()
 	{
-		echo "adding new user";
-		echo "<p>Query string parameters:<pre>" .
-			htmlspecialchars(print_r($this->params)) . "</pre></p>";
-
+		View::render('User/add_new.php', [
+			'title'	=>	'camagru | Adding new photo'
+		]);
 	}
 
 	/**

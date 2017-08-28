@@ -39,7 +39,7 @@ class Home extends \Core\Controller
 	public function indexAction()
 	{
 		View::render('index.php', [
-			'title'		=>	'camagru',
+			'title'		=>	'camagru | All photos',
 			'colors'	=>	['red', 'blue', 'green'],
 			'name'		=>	'LyryK.ua'
 		]);

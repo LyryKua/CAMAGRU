@@ -19,18 +19,6 @@ use Core\View;
 class Authorization extends \Core\Controller
 {
 	/**
-	 * This func sign-in an user
-	 *
-	 * @return void
-	 */
-	public function logInAction()
-	{
-		View::render('Authorization/log-in.php', [
-			'title'		=>	'camagru | Log in'
-		]);
-	}
-
-	/**
 	 * This func create a new user
 	 *
 	 * @return void
@@ -39,6 +27,18 @@ class Authorization extends \Core\Controller
 	{
 		View::render('Authorization/sign-up.php', [
 			'title'		=>	'camagru | Sign up'
+		]);
+	}
+
+	/**
+	 * This func sign-in an user
+	 *
+	 * @return void
+	 */
+	public function logInAction()
+	{
+		View::render('Authorization/log-in.php', [
+			'title'		=>	'camagru | Log in'
 		]);
 	}
 
