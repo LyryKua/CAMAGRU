@@ -17,7 +17,7 @@ use PDO;
  *
  * User model
  */
-class UserModel
+class UserModel extends \Core\Model
 {
 	/**
 	 * Get all the user from DB
@@ -26,14 +26,8 @@ class UserModel
 	 */
 	public static function getAll()
 	{
-		$host = "localhost";
-		$db_name = "camagru";
-		$user = "root";
-		$password = "256512";
-
 		try {
-			$db = new PDO("mysql:host=$host;dbname=$db_name;charset=utf8",
-				$user, $password);
+			$db = static::getDB();
 
 			$query = 'SELECT * FROM `users`';
 			$stmt = $db->query($query);
