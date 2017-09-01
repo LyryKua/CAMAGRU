@@ -18,6 +18,7 @@ use App\Configuration;
  */
 abstract class Model
 {
+	protected $db = null;
 	/**
 	 *
 	 */

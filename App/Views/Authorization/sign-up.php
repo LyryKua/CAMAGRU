@@ -8,12 +8,12 @@
 <body>
 <?php require_once(dirname(__FILE__) . '/../blocks/header.php'); ?>
 <form method="post" action="#">
-    <p><input type="text" name="name" placeholder="Name" value="Kyrylo"></p>
-    <p><input type="text" name="surname" placeholder="Surname" value="Hrechenyiuk"></p>
-    <p><input type="text" name="login" placeholder="Login*" value="LyryKua"></p>
-    <p><input type="email" name="email" placeholder="E-mail*" value="lyryk.ua@gmail.com"></p>
-    <p><input type="password" name="password1" placeholder="Password*"></p>
-    <p><input type="password" name="password2" placeholder="Confirm password*"></p>
+    <p><input type="text" name="name" placeholder="Name" required value="Kyrylo"></p>
+    <p><input type="text" name="surname" placeholder="Surname" required value="Hrechenyiuk"></p>
+    <p><input type="text" name="login" placeholder="Login*" required value="LyryKua"></p>
+    <p><input type="email" name="email" placeholder="E-mail*" required value="lyryk.ua@gmail.com"></p>
+    <p><input type="password" name="password1" placeholder="Password*" required value="function"></p>
+    <p><input type="password" name="password2" placeholder="Confirm password*" required value="function"></p>
     <p>
         <button type="submit" name="submit">Sign up</button>
     </p>

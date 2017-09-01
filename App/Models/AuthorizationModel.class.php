@@ -24,7 +24,8 @@ class AuthorizationModel extends \Core\Model
 	 * @param string $name
 	 * @return bool
 	 */
-	public static function nameValidation($name) {
+	public static function nameValidation($name)
+	{
 		$pattern = '/^[A-Z][a-z]{2,15}$/';
 		if (preg_match($pattern, $name) || $name == "") {
 			return true;
@@ -42,7 +43,8 @@ class AuthorizationModel extends \Core\Model
 	 * @param string $surname
 	 * @return bool
 	 */
-	public static function surnameValidation($surname) {
+	public static function surnameValidation($surname)
+	{
 		$pattern = '/^[A-Z][a-z]{2,31}$/';
 		if (preg_match($pattern, $surname) || $surname == "") {
 			return true;
@@ -60,13 +62,56 @@ class AuthorizationModel extends \Core\Model
 	 * @param $login
 	 * @return bool
 	 */
-	public static function loginValidation($login) {
+	public static function loginValidation($login)
+	{
 		$pattern = '/^[a-z0-9_-]{3,16}$/';
 		if (preg_match($pattern, $login)) {
+			if (parent::$db === null) {
+				parent::$db = static::getDB();
+			}
+			$sql = "SELECT *
+					FROM `users`
+					WHERE `login`=?;";
+			$stmt = parent::$db->prepare($sql);
+			$stmt->bindParam(1, $login);
+			$stmt->execute();
+			$row = $stmt->fetch();
+			if ($row) {
+				return false;
+			}
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * emailValidation
+	 *
+	 * Check email in DB
+	 *
+	 * @param string $email
+	 * @return bool
+	 */
+	public static function emailValidation($email)
+	{
+		if (parent::$db === null) {
+			parent::$db = static::getDB();
+		}
+		$sql = 'SELECT *
+				FROM `users`
+				WHERE `email`=:email;';
+		$stmt = parent::$db->prepare($sql);
+		$stmt->bindParam(':email', $email);
+		$stmt->execute();
+		$row = $stmt->fetch(\PDO::FETCH_OBJ);
+		if ($row) {
+			echo "exist";
+		} else {
+			echo "NO";
+		}
+
+		return true;
 	}
 
 	/**
@@ -82,7 +127,8 @@ class AuthorizationModel extends \Core\Model
 	 * @param string $password2
 	 * @return bool
 	 */
-	public static function passwordValidation($password1, $password2) {
+	public static function passwordValidation($password1, $password2)
+	{
 		$pattern = '/^[\w-@$]{6,18}$/';
 		if ($password1 === $password2 && preg_match($pattern, $password1)) {
 			return true;

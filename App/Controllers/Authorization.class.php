@@ -43,23 +43,19 @@ class Authorization extends \Core\Controller
 			} else if (!AuthorizationModel::surnameValidation($surname)) {
 				$arr['error'] = 'Surname is incorrect!';
 			} else if (!AuthorizationModel::loginValidation($login)) {
-				$arr['error'] = 'Login is incorrect!';
-			} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				$arr['error'] = 'Email is incorrect!';
+				$arr['error'] = 'Login is incorrect or this login is already taken!';
+			} else if (!AuthorizationModel::emailValidation($email)) {
+				$arr['error'] = 'Email is already taken!';
 			} else if (!AuthorizationModel::passwordValidation($password1, $password2)) {
-				$arr['error'] = 'Passwords do not match!';
+				$arr['error'] = 'Passwords are incorrect!';
 			} else {
-				$query = "	INSERT INTO `camagru`.`users` (
-								`name`, `surname`, `login`, `email`, `password`, `active_hash`)
-					  		VALUES (
-					  			:firstname, :secondname, :login, :email, :password, :active_hash);";
 				$params['firstname'] = $name;
 				$params['secondname'] = $surname;
 				$params['login'] = $login;
 				$params['email'] = $email;
 				$params['password'] = password_hash($password1, PASSWORD_DEFAULT);
 				$params['active_hash'] = password_hash($name . $surname . $login . $email, PASSWORD_DEFAULT);
-				UserModel::addUser($query, $params);
+				UserModel::addUser($params);
 			}
 		}
 		View::render('Authorization/sign-up.php', $arr);

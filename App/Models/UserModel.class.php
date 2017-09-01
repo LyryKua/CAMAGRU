@@ -38,10 +38,14 @@ class UserModel extends \Core\Model
 		}
 	}
 
-	public static function addUser($sql, $params)
+	public static function addUser($params)
 	{
 		try {
 			$db = static::getDB();
+			$sql = "INSERT INTO `camagru`.`users` (
+						`name`, `surname`, `login`, `email`, `password`, `active_hash`)
+					VALUES (
+				  		:firstname, :secondname, :login, :email, :password, :active_hash);";
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam(':firstname', $params['firstname']);
 			$stmt->bindParam(':secondname', $params['secondname']);
@@ -49,8 +53,13 @@ class UserModel extends \Core\Model
 			$stmt->bindParam(':email', $params['email']);
 			$stmt->bindParam(':password', $params['password']);
 			$stmt->bindParam(':active_hash', $params['active_hash']);
-			$stmt->execute(); // тут треба влипити іф для перевірки тру чи фолс
-		} catch (\PDOException $e) {
+			if ($stmt->execute()) {
+				echo "Вставив!<br>";
+			} else {
+				echo "Мімо<br>";
+			}// тут треба влипити іф для перевірки тру чи фолс
+		} catch
+		(\PDOException $e) {
 			$e->getMessage();
 		}
 	}
