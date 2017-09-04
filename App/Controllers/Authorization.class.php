@@ -71,9 +71,16 @@ class Authorization extends \Core\Controller
 		$arr = ['title' => 'camagru | Log in'];
 		if (isset($_POST['submit'])) {
 			$login = strtolower(htmlspecialchars($_POST['login']));
-//			$password = htmlspecialchars($_POST['password']);
-			if (!AuthorizationModel::checkUserInDb($login)){
+			$password = htmlspecialchars($_POST['password']);
+			$row = AuthorizationModel::checkUserInDb($login);
+			if (!$row){
 				$arr['error'] = 'Login is incorrect!';
+			} else {
+				if (password_verify($password, $row->password)) {
+					$arr['error'] = 'Zaxodum!';
+				} else {
+					$arr['error'] = 'Wrong Password!';
+				}
 			}
 		}
 		View::render('Authorization/log-in.php', $arr);

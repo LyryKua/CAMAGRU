@@ -9,7 +9,7 @@
 <?php require(dirname(__FILE__) . '/../blocks/header.php'); ?>
 <form method="post" action="#">
     <p><input type="text" name="login" placeholder="Login*" required value="pup"></p>
-    <p><input type="password" name="password1" placeholder="Password*" required value="function"></p>
+    <p><input type="password" name="password" placeholder="Password*" required value="function"></p>
     <p>
         <button type="submit" name="submit">Log in</button>
     </p>

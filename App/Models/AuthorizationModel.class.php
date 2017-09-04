@@ -154,12 +154,9 @@ class AuthorizationModel extends \Core\Model
 			$stmt->bindParam(1, $login);
 			$stmt->execute();
 			$row = $stmt->fetch(\PDO::FETCH_OBJ);
-			if ($row) {
-				return true;
-			}
+			return $row;
 		} catch (\PDOException $e) {
 			$e->getMessage();
 		}
-		return false;
 	}
 }
