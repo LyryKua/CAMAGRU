@@ -24,7 +24,7 @@ class View
 	 *
 	 * @return void
 	 */
-	public static function render($view, $args = [])
+	public static function render($view, $args = ['title' => 'camagru'])
 	{
 		extract($args, EXTR_SKIP);
 

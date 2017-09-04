@@ -66,12 +66,17 @@ class Authorization extends \Core\Controller
 	 *
 	 * @return void
 	 */
-	public
-	function logInAction()
+	public function logInAction()
 	{
-		View::render('Authorization/log-in.php', [
-			'title' => 'camagru | Log in'
-		]);
+		$arr = ['title' => 'camagru | Log in'];
+		if (isset($_POST['submit'])) {
+			$login = strtolower(htmlspecialchars($_POST['login']));
+//			$password = htmlspecialchars($_POST['password']);
+			if (!AuthorizationModel::checkUserInDb($login)){
+				$arr['error'] = 'Login is incorrect!';
+			}
+		}
+		View::render('Authorization/log-in.php', $arr);
 	}
 
 	/**
@@ -83,6 +88,13 @@ class Authorization extends \Core\Controller
 	function logOutAction()
 	{
 		echo "logOut";
+	}
+
+	public function resetPasswordAction()
+	{
+		View::render('Authorization/reset_password.php', [
+			'title' => 'camagru | Reset Password'
+		]);
 	}
 }
 

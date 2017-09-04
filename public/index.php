@@ -23,6 +23,7 @@ $router->add('sign-up', ['controller' => 'Authorization', 'action' => 'signUp'])
 $router->add('log-in', ['controller' => 'Authorization', 'action' => 'logIn']);
 $router->add('log-out', ['controller' => 'Authorization', 'action' => 'logOut']);
 $router->add('user', ['controller' => 'User', 'action' => 'index']);
+$router->add('reset-password', ['controller' => 'Authorization', 'action' => 'resetPassword']);
 $router->add('{controller}/{action}');
 //$router->add('{controller}/{id}/{action}');
 

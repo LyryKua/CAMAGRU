@@ -66,18 +66,21 @@ class AuthorizationModel extends \Core\Model
 	{
 		$pattern = '/^[a-z0-9_-]{3,16}$/';
 		if (preg_match($pattern, $login)) {
-			if (parent::$db === null) {
-				parent::$db = static::getDB();
-			}
-			$sql = "SELECT *
-					FROM `users`
-					WHERE `login`=?;";
-			$stmt = parent::$db->prepare($sql);
-			$stmt->bindParam(1, $login);
-			$stmt->execute();
-			$row = $stmt->fetch();
-			if ($row) {
-				return false;
+
+			try {
+				$db = static::getDB();
+				$sql = "SELECT *
+						FROM `users`
+						WHERE `login`=?;";
+				$stmt = $db->prepare($sql);
+				$stmt->bindParam(1, $login);
+				$stmt->execute();
+				$row = $stmt->fetch();
+				if ($row) {
+					return false;
+				}
+			} catch (\PDOException $e) {
+				$e->getMessage();
 			}
 			return true;
 		} else {
@@ -95,22 +98,23 @@ class AuthorizationModel extends \Core\Model
 	 */
 	public static function emailValidation($email)
 	{
-		if (parent::$db === null) {
-			parent::$db = static::getDB();
+		try {
+			$db = static::getDB();
+			$sql = '
+			SELECT *
+			FROM `users`
+			WHERE `email`=?;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(1, $email);
+			$stmt->execute();
+			$row = $stmt->fetch(\PDO::FETCH_OBJ);
+			if ($row) {
+				return false;
+			}
+		} catch (\PDOException $e) {
+			$e->getMessage();
 		}
-		$sql = 'SELECT *
-				FROM `users`
-				WHERE `email`=:email;';
-		$stmt = parent::$db->prepare($sql);
-		$stmt->bindParam(':email', $email);
-		$stmt->execute();
-		$row = $stmt->fetch(\PDO::FETCH_OBJ);
-		if ($row) {
-			echo "exist";
-		} else {
-			echo "NO";
-		}
-
 		return true;
 	}
 
@@ -137,5 +141,25 @@ class AuthorizationModel extends \Core\Model
 		}
 	}
 
-
+	public static function checkUserInDb($login)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			SELECT *
+			FROM `users`
+			WHERE `login`=?
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(1, $login);
+			$stmt->execute();
+			$row = $stmt->fetch(\PDO::FETCH_OBJ);
+			if ($row) {
+				return true;
+			}
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+		return false;
+	}
 }
