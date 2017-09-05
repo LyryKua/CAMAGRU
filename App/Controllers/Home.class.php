@@ -18,20 +18,6 @@ use \Core\View;
 class Home extends \Core\Controller
 {
 	/**
-	 * @return void
-	 */
-	protected function before()
-	{
-	}
-
-	/**
-	 * @return void
-	 */
-	protected function after()
-	{
-	}
-
-	/**
 	 * this func shows list of all picture in DB
 	 *
 	 * @return void

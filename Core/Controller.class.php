@@ -58,6 +58,11 @@ abstract class Controller
 	 */
 	protected function before()
 	{
+		if (isset($_SESSION['user_id'])) {
+			echo "Авторизований!";
+		} else {
+			echo "Не авторизований :(";
+		}
 	}
 
 	/**
@@ -67,5 +72,10 @@ abstract class Controller
 	 */
 	protected function after()
 	{
+		if (isset($_SESSION['user_id'])) {
+			echo "Авторизований!";
+		} else {
+			echo "Не авторизований :(";
+		}
 	}
 }

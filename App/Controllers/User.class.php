@@ -35,9 +35,13 @@ class User extends \Core\Controller
 	 */
 	public function addNewAction()
 	{
-		View::render('User/add_new.php', [
-			'title'	=>	'camagru | Adding new photo'
-		]);
+		if (isset($_SESSION['user_id'])) {
+			View::render('User/add_new.php', [
+				'title' => 'camagru | Adding new photo'
+			]);
+		} else {
+			header("Location: /");
+		}
 	}
 
 	/**

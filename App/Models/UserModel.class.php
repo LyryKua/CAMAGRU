@@ -94,6 +94,7 @@ class UserModel extends \Core\Model
 		mail($param['email'], "Confirm your camagru account", $message, $headers);
 	}
 
+
 	public static function updateUserStatus($id, $status)
 	{
 		try {
@@ -110,6 +111,51 @@ class UserModel extends \Core\Model
 		} catch (\PDOException $e) {
 			$e->getMessage();
 		}
+	}
+
+	public static function resetPassword($login_or_password)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			SELECT *
+			FROM `users`
+			WHERE (`login`=:var) OR (`email`=:var);
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':var', $login_or_password);
+			$stmt->execute();
+			$row = $stmt->fetch(\PDO::FETCH_OBJ);
+			return ($row);
+//			self::sendMail($params);
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+	}
+
+	public static function sendResetPass($param)
+	{
+		//ось тут ми записуємо час в бд шифруємо id і відправляємо цю калюасу
+		$message = "
+				<html lang='en'>
+				<head>
+					<title>Registration</title>
+				</head>
+				<body>
+				<p>We heard that you lost your camagru password. Sorry about that!</p>
+				<p>But don’t worry! You can use the following link to reset your password:</p>
+				<p>http://127.0.0.1:8080/wf/click?action=reset-password&</p>
+				<p>If you don’t use this link within 3 hours, it will expire. To get a new password reset link, visit
+				http://localhost:8080/reset-password</p>
+				<p>You’re receiving this email because you recently created a new camagru account. If this wasn’t you,
+				please ignore this email.</p>
+				<p>Thanks,<br>
+				Your friends at camagru</p>
+				</body>
+				</html>
+			";
+		$headers = "Content-type: text/html; charset=\"UTF-8\" \r\n";
+		mail($param->email, "Confirm your camagru account", $message, $headers);
 	}
 }
 

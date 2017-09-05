@@ -7,10 +7,15 @@
 </head>
 <body>
 <?php require(dirname(__FILE__) . '/../blocks/header.php'); ?>
-<form action="#">
-    <p><input type="text" placeholder="Login or email"></p>
+<form method="post" action="#">
+    <p><input type="text" name="value" placeholder="Login or email" required value=""></p>
+	<?php
+	if (isset($error)) {
+		echo "<p>$error</p>";
+	}
+	?>
     <p>
-        <button type="submit">Reset Password</button>
+        <button type="submit" name="submit">Reset Password</button>
     </p>
 </form>
 <p>Have an account? <a href="/log-in">Log in</a></p>

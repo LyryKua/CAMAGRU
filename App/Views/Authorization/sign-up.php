@@ -11,7 +11,7 @@
     <p><input type="text" name="name" placeholder="Name" required value="Kyrylo"></p>
     <p><input type="text" name="surname" placeholder="Surname" required value="Hrechenyiuk"></p>
     <p><input type="text" name="login" placeholder="Login*" required value="LyryKua"></p>
-    <p><input type="email" name="email" placeholder="E-mail*" required value="besiya@p33.org"></p>
+    <p><input type="email" name="email" placeholder="E-mail*" required value="kuya@p33.org"></p>
     <p><input type="password" name="password1" placeholder="Password*" required value="function"></p>
     <p><input type="password" name="password2" placeholder="Confirm password*" required value="function"></p>
     <p>
