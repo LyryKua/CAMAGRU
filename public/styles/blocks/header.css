@@ -1,0 +1,35 @@
+header {
+    box-shadow: 0px 0px 22px -3px #ccc;
+    position: relative;
+    width: 100%;
+    background: #ffffff;
+}
+
+div.logo {
+    margin: auto;
+    padding: 18px 0 6px;
+}
+
+div.logo img {
+    display: block;
+    margin: auto;
+    width: 426px;
+    height: 90px;
+}
+
+div.add {
+    position: absolute;
+    top: 25px;
+    left: 35px;
+}
+
+div.add img, div.user img{
+    width: 64px;
+    height: 64px;
+}
+
+div.user {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+}
