@@ -55,8 +55,7 @@ abstract class Controller
 				$this->after();
 			}
 		} else {
-			$arr['title'] = 'camagru | Page not found';
-			View::render('blocks/page404.php', $arr);
+			View::render('blocks/page404.php');
 		}
 	}
 

@@ -20,8 +20,8 @@ class View
 	 *
 	 * Render a view file
 	 *
-	 * @param string $view	The view file
-	 * @param array $args	data for $view
+	 * @param string $view The view file
+	 * @param array $args data for $view
 	 *
 	 * @return void
 	 */
@@ -32,7 +32,7 @@ class View
 		$file = "../App/Views/$view"; // relative to Core directory
 
 		if (is_readable($file)) {
-			require $file;
+			require_once($file);
 		} else {
 			echo "<h1>404</h1>$file not found";
 		}
