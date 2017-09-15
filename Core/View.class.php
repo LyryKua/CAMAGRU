@@ -16,25 +16,22 @@ namespace Core;
 class View
 {
 	/**
-	 * render($view, $args = ['title' => 'camagru'])
-	 *
 	 * Render a view file
 	 *
 	 * @param string $view The view file
-	 * @param array $args data for $view
-	 *
-	 * @return void
+	 * @param array $args Associative array of data to display in the view (optional)
+	 * @throws \Exception
 	 */
 	public static function render($view, $args = ['title' => 'camagru'])
 	{
 		extract($args, EXTR_SKIP);
 
-		$file = "../App/Views/$view"; // relative to Core directory
+		$file = dirname(__DIR__) . "/App/Views/$view"; // relative to Core directory
 
 		if (is_readable($file)) {
 			require_once($file);
 		} else {
-			echo "<h1>404</h1>$file not found";
+			throw new \Exception("$file not found");
 		}
 	}
 }

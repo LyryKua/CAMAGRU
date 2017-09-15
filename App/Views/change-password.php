@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>camagru</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
+
     <style>
         body {
             padding: 0;
@@ -14,7 +17,7 @@
             max-width: 350px;
             margin: auto;
             position: relative;
-            top: 142px;
+            top: 290px;
             border: 1px solid #82b4b1;
             border-radius: 6px;
         }
@@ -98,11 +101,6 @@
             color: rgba(130, 180, 177, 0.5);
         }
 
-        form > div:first-child {
-            color: #82b4b1;
-            font-size: 1.3em;
-        }
-
         form a {
             display: inline-block;
             text-decoration: none;
@@ -116,45 +114,35 @@
             transition: 0.5s all;
         }
 
+        form p {
+            margin-top: 15px;
+            margin-bottom: 2px;
+        }
+
     </style>
-    <link rel="stylesheet" type="text/css" href="/css/blocks/header_for_log-in.css">
+
 </head>
 <body>
-<header class="top">
-    <div class="header">
-        <div class="content">
-            <div class="logo"><a href="/"><img src="/icons/logo2.png"></a></div>
-            <div class="user"><a href="/log-in"><img src="/icons/user3.png"></a></div>
-        </div>
-    </div>
-</header>
+
+<?php require_once('blocks/header.php') ?>
 
 <div class="form-container">
     <div class="form-header">
-        <h2>Sign In</h2>
+        <h2>Change Password</h2>
     </div>
     <form action="#" method="post">
-		<?php if (isset($verification)) : ?>
-        <div>
-            <?php echo $verification; ?>
-        </div>
-        <?php endif ?>
-        <label for="login">Login</label>
+        <label for="old_password">old password</label>
         <br>
-        <input type="text" id="login" name="login" value="<?php if (isset($login)) {
-			echo $login;
-		} ?>">
-        <label for="password">Password</label>
+        <input type="password" id="old_password" name="old_password">
+        <label for="password1">new password</label>
         <br>
-        <input type="password" id="password" name="password" value="password"<?php if (isset($e)) {
-			echo " autofocus";
-		} ?>>
-		<?php if (isset($e)) {
-			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 20px;'>" . $e . "</div>";
-		} ?>
-        <button type="submit" name="submit">Sign In</button>
+        <input type="password" id="password1" name="password1">
+        <label for="password2">confirm password</label>
+        <br>
+        <input type="password" id="password2" name="password2">
+        <button type="submit">change password</button>
         <div>
-            <a href="/reset-password">Reset Password</a>
+            <a href="/log-in">Sign In</a>
             |
             <a href="/sign-up">Sign Up</a>
         </div>

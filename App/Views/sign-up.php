@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>camagru</title>
+    <title><?php echo $title; ?></title>
     <style>
         body {
             padding: 0;
@@ -98,11 +98,6 @@
             color: rgba(130, 180, 177, 0.5);
         }
 
-        form > div:first-child {
-            color: #82b4b1;
-            font-size: 1.3em;
-        }
-
         form a {
             display: inline-block;
             text-decoration: none;
@@ -114,6 +109,11 @@
         form a:hover {
             color: #82b4b1;
             transition: 0.5s all;
+        }
+
+        form p {
+            margin-top: 15px;
+            margin-bottom: 2px;
         }
 
     </style>
@@ -131,32 +131,31 @@
 
 <div class="form-container">
     <div class="form-header">
-        <h2>Sign In</h2>
+        <h2>sign up</h2>
     </div>
     <form action="#" method="post">
-		<?php if (isset($verification)) : ?>
-        <div>
-            <?php echo $verification; ?>
-        </div>
-        <?php endif ?>
         <label for="login">Login</label>
         <br>
         <input type="text" id="login" name="login" value="<?php if (isset($login)) {
 			echo $login;
 		} ?>">
-        <label for="password">Password</label>
+        <label for="email">email</label>
         <br>
-        <input type="password" id="password" name="password" value="password"<?php if (isset($e)) {
-			echo " autofocus";
-		} ?>>
+        <input type="email" id="email" name="email" value="<?php if (isset($email)) {
+			echo $email;
+		} ?>">
+        <label for="password1">Password</label>
+        <br>
+        <input type="password" id="password1" name="pass1" value="password">
+        <label for="password2">confirm password</label>
+        <br>
+        <input type="password" id="password2" name="pass2" value="password">
 		<?php if (isset($e)) {
 			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 20px;'>" . $e . "</div>";
 		} ?>
-        <button type="submit" name="submit">Sign In</button>
+        <button type="submit" name="submit">sign up</button>
         <div>
-            <a href="/reset-password">Reset Password</a>
-            |
-            <a href="/sign-up">Sign Up</a>
+            <a href="/log-in">Sign In</a>
         </div>
     </form>
 </div>

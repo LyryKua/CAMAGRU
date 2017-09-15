@@ -55,7 +55,8 @@ abstract class Controller
 				$this->after();
 			}
 		} else {
-			View::render('blocks/page404.php');
+			throw new \Exception("Method $method not found in controller " . get_class($this));
+//			echo "Method $method not found in controller " . get_class($this);
 		}
 	}
 
@@ -66,11 +67,6 @@ abstract class Controller
 	 */
 	protected function before()
 	{
-		if (isset($_SESSION['user_id'])) {
-			echo "Авторизований!";
-		} else {
-			echo "Не авторизований :(";
-		}
 	}
 
 	/**
@@ -80,10 +76,5 @@ abstract class Controller
 	 */
 	protected function after()
 	{
-		if (isset($_SESSION['user_id'])) {
-			echo "Авторизований!";
-		} else {
-			echo "Не авторизований :(";
-		}
 	}
 }

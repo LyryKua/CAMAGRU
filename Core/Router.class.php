@@ -118,27 +118,24 @@ class Router
 		if ($this->match($url)) {
 			$controller = $this->params['controller'];
 			$controller = $this->convertToStudlyCaps($controller);
-			$controller = "App\\Controllers\\$controller";
-
+			$controller = $this->getNamespace() . $controller;
 			if (class_exists($controller)) {
-				$obj = new $controller($this->params);
-
+				$controller_object = new $controller($this->params);
 				$action = $this->params['action'];
 				$action = $this->convertToCamelCase($action);
-				if (is_callable([$obj, $action])) {
-					$obj->$action();
-
+				if (preg_match('/action$/i', $action) == 0) {
+					$controller_object->$action();
 				} else {
-					$arr['title'] = 'camagru | Page not found';
-					View::render('blocks/page404.php', $arr);
+					throw new \Exception("Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method");
+//					echo "Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method";
 				}
 			} else {
-				$arr['title'] = 'camagru | Page not found';
-				View::render('blocks/page404.php', $arr);
+				throw new \Exception ("Controller class $controller not found");
+//				echo "Controller class $controller not found";
 			}
 		} else {
-			$arr['title'] = 'camagru | Page not found';
-			View::render('blocks/page404.php', $arr);
+			throw new \Exception ('No route matched.', 404);
+//			echo 'No route matched.';
 		}
 	}
 
@@ -208,5 +205,20 @@ class Router
 			}
 		}
 		return $url;
+	}
+
+	/**
+	 * Get the namespace for the controller class. The namespace defined in the
+	 * route parameters is added if present.
+	 *
+	 * @return string The request URL
+	 */
+	protected function getNamespace()
+	{
+		$namespace = 'App\Controllers\\';
+		if (array_key_exists('namespace', $this->params)) {
+			$namespace .= $this->params['namespace'] . '\\';
+		}
+		return $namespace;
 	}
 }

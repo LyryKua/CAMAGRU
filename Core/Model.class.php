@@ -49,15 +49,15 @@ abstract class Model
 	 *
 	 * Array
 	 * (
-	 * 		[user_id] => 42
-	 * 		[name] => Kyrylo
-	 * 		[surname] => Hrechenyiuk
-	 * 		[login] => lyrykua
-	 * 		[email] => lyryk.ua@gmail.com
-	 * 		[password] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
-	 * 		[reg_date] => 2017-09-04 15:22:25
-	 * 		[status] => 1
-	 * 		[forgot_pass] => NULL
+	 *        [user_id] => 42
+	 *        [firstname] => Kyrylo
+	 *        [lastname] => Hrechenyiuk
+	 *        [login] => petrovalida
+	 *        [email] => lyrykua@gmail.com
+	 *        [password] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
+	 *        [active_hash] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
+	 *        [status] => 1
+	 *        [forgot_pass] => NULL
 	 * )
 	 *
 	 * @param $user_id
@@ -70,8 +70,8 @@ abstract class Model
 			$db = static::getDB();
 			$sql = '
 			SELECT *
-			FROM camagru.users
-			WHERE user_id=?;
+			FROM `camagru`.`users`
+			WHERE `user_id`=?;
 			';
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam(1, $user_id);
@@ -93,29 +93,29 @@ abstract class Model
 	 *
 	 * Array
 	 * (
-	 * 		[user_id] => 42
-	 * 		[name] => Kyrylo
-	 * 		[surname] => Hrechenyiuk
-	 * 		[login] => lyrykua
-	 * 		[email] => lyryk.ua@gmail.com
-	 * 		[password] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
-	 * 		[reg_date] => 2017-09-04 15:22:25
-	 * 		[status] => 1
-	 * 		[forgot_pass] => NULL
+	 *        [user_id] => 42
+	 *        [firstname] => Kyrylo
+	 *        [lastname] => Hrechenyiuk
+	 *        [login] => petrovalida
+	 *        [email] => lyrykua@gmail.com
+	 *        [password] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
+	 *        [active_hash] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
+	 *        [status] => 1
+	 *        [forgot_pass] => NULL
 	 * )
 	 *
 	 * @param $login
 	 * @return bool|mixed
 	 */
-	protected static function getUserByLogin($login)
+	public static function getUserByLogin($login)
 	{
 		$row = false;
 		try {
 			$db = static::getDB();
 			$sql = '
 			SELECT *
-			FROM camagru.users
-			WHERE login=?;
+			FROM `camagru`.`users`
+			WHERE `login`=?;
 			';
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam(1, $login);
@@ -137,29 +137,29 @@ abstract class Model
 	 *
 	 * Array
 	 * (
-	 * 		[user_id] => 42
-	 * 		[name] => Kyrylo
-	 * 		[surname] => Hrechenyiuk
-	 * 		[login] => lyrykua
-	 * 		[email] => lyryk.ua@gmail.com
-	 * 		[password] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
-	 * 		[reg_date] => 2017-09-04 15:22:25
-	 * 		[status] => 1
-	 * 		[forgot_pass] => NULL
+	 *        [user_id] => 42
+	 *        [firstname] => Kyrylo
+	 *        [lastname] => Hrechenyiuk
+	 *        [login] => petrovalida
+	 *        [email] => lyrykua@gmail.com
+	 *        [password] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
+	 *        [active_hash] => $2y$10$D.XZmfUrX2mKbCTdQ5bS8OuJx4TjgwO7ExVShDm8FhiGwORAqDp0e
+	 *        [status] => 1
+	 *        [forgot_pass] => NULL
 	 * )
 	 *
 	 * @param $email
 	 * @return bool|mixed
 	 */
-	protected static function getUserByEmail($email)
+	public static function getUserByEmail($email)
 	{
 		$row = false;
 		try {
 			$db = static::getDB();
 			$sql = '
 			SELECT *
-			FROM camagru.users
-			WHERE email=?;
+			FROM `camagru`.`users`
+			WHERE `email`=?;
 			';
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam(1, $email);
@@ -169,5 +169,34 @@ abstract class Model
 			$e->getMessage();
 		}
 		return $row;
+	}
+
+	/**
+	 * insertUser($login, $email, $password)
+	 *
+	 * This function add an user into `user` table.
+	 *
+	 * @param $login
+	 * @param $email
+	 * @param $password
+	 */
+	public static function insertUser($login, $email, $password)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			INSERT INTO `camagru`.`users` (
+				`login`, `email`, `password`)
+			VALUES (
+				:login, :email, :password);
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':login', $login);
+			$stmt->bindParam(':email', $email);
+			$stmt->bindParam(':password', $password);
+			$stmt->execute();
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
 	}
 }

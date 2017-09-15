@@ -98,11 +98,6 @@
             color: rgba(130, 180, 177, 0.5);
         }
 
-        form > div:first-child {
-            color: #82b4b1;
-            font-size: 1.3em;
-        }
-
         form a {
             display: inline-block;
             text-decoration: none;
@@ -114,6 +109,11 @@
         form a:hover {
             color: #82b4b1;
             transition: 0.5s all;
+        }
+
+        form p {
+            margin-top: 15px;
+            margin-bottom: 2px;
         }
 
     </style>
@@ -131,30 +131,15 @@
 
 <div class="form-container">
     <div class="form-header">
-        <h2>Sign In</h2>
+        <h2>reset password</h2>
     </div>
     <form action="#" method="post">
-		<?php if (isset($verification)) : ?>
-        <div>
-            <?php echo $verification; ?>
-        </div>
-        <?php endif ?>
-        <label for="login">Login</label>
+        <label for="login_or_email">Login</label>
         <br>
-        <input type="text" id="login" name="login" value="<?php if (isset($login)) {
-			echo $login;
-		} ?>">
-        <label for="password">Password</label>
-        <br>
-        <input type="password" id="password" name="password" value="password"<?php if (isset($e)) {
-			echo " autofocus";
-		} ?>>
-		<?php if (isset($e)) {
-			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 20px;'>" . $e . "</div>";
-		} ?>
-        <button type="submit" name="submit">Sign In</button>
+        <input type="text" id="login_or_email" name="login_or_email">
+        <button type="submit">confirm</button>
         <div>
-            <a href="/reset-password">Reset Password</a>
+            <a href="/log-in">Sign In</a>
             |
             <a href="/sign-up">Sign Up</a>
         </div>

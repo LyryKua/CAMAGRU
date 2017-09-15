@@ -14,7 +14,7 @@
             max-width: 350px;
             margin: auto;
             position: relative;
-            top: 142px;
+            top: 280px;
             border: 1px solid #82b4b1;
             border-radius: 6px;
         }
@@ -36,13 +36,13 @@
             text-align: center;
         }
 
-        form {
+        form.set {
             padding: 20px 10px 2px;
             background-color: #f2f7e1;
             border-radius: 0 0 6px 6px;
         }
 
-        label {
+        form.set label {
             text-transform: lowercase;
             color: #82b4b1;
             font-weight: 600;
@@ -51,7 +51,7 @@
             line-height: 2em;
         }
 
-        input {
+        form.set input {
             padding: 8px;
             border: 1px solid #82b4b1;
             border-radius: 3px;
@@ -63,14 +63,14 @@
             background-color: transparent;
         }
 
-        input:focus {
+        form.set input:focus {
             outline: none;
             box-shadow: 0px 0px 50px 0px #82b4b1;
             background-color: white;
             border: 1px solid #87d1d0;
         }
 
-        button {
+        form.set button {
             display: block;
             margin: auto auto 10px;
             padding: 10px 20px;
@@ -86,24 +86,19 @@
             cursor: pointer;
         }
 
-        button:hover {
+        form.set button:hover {
             /*border-bottom: 6px solid #e0f2ed;*/
             transition: 0.5s all;
             color: #e0f2ed;
             background-color: #82b4b1;
         }
 
-        form > div {
+        form.set > div {
             text-align: center;
             color: rgba(130, 180, 177, 0.5);
         }
 
-        form > div:first-child {
-            color: #82b4b1;
-            font-size: 1.3em;
-        }
-
-        form a {
+        form.set a {
             display: inline-block;
             text-decoration: none;
             font-size: 0.7em;
@@ -111,54 +106,78 @@
             text-align: center;
         }
 
-        form a:hover {
+        form.set a:hover {
             color: #82b4b1;
             transition: 0.5s all;
         }
 
+        form.set a.change-password {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1em;
+            color: rgba(130, 180, 177, 0.5);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form.set a.change-password:hover {
+            color: #82b4b1;
+            transition: 0.5s all;
+        }
+
+        form.set a.del_user {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1em;
+            color: rgba(237, 73, 86, 0.5);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form.set a.del_user:hover {
+            color: #ed4956;
+            transition: 0.5s all;
+        }
+
+        form.set p {
+            margin-top: 15px;
+            margin-bottom: 2px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
     </style>
-    <link rel="stylesheet" type="text/css" href="/css/blocks/header_for_log-in.css">
+    <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 </head>
 <body>
-<header class="top">
-    <div class="header">
-        <div class="content">
-            <div class="logo"><a href="/"><img src="/icons/logo2.png"></a></div>
-            <div class="user"><a href="/log-in"><img src="/icons/user3.png"></a></div>
-        </div>
-    </div>
-</header>
+
+<?php require_once('blocks/header.php') ?>
 
 <div class="form-container">
     <div class="form-header">
-        <h2>Sign In</h2>
+        <h2>settings</h2>
     </div>
-    <form action="#" method="post">
-		<?php if (isset($verification)) : ?>
+    <form class="set" action="#" method="post">
+        <label for="firstname">firstname</label>
+        <br>
+        <input type="text" id="firstname" name="firstname" placeholder="name">
+        <label for="lastname">lastname</label>
+        <br>
+        <input type="text" id="lastname" name="lastname" placeholder="surname">
         <div>
-            <?php echo $verification; ?>
+            <a class="change-password" href="/user/change-password">Change Password</a>
         </div>
-        <?php endif ?>
-        <label for="login">Login</label>
-        <br>
-        <input type="text" id="login" name="login" value="<?php if (isset($login)) {
-			echo $login;
-		} ?>">
-        <label for="password">Password</label>
-        <br>
-        <input type="password" id="password" name="password" value="password"<?php if (isset($e)) {
-			echo " autofocus";
-		} ?>>
-		<?php if (isset($e)) {
-			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 20px;'>" . $e . "</div>";
-		} ?>
-        <button type="submit" name="submit">Sign In</button>
         <div>
-            <a href="/reset-password">Reset Password</a>
-            |
-            <a href="/sign-up">Sign Up</a>
+            <a class="del_user" href="/user/remove">Remove Account</a>
+        </div>
+        <button type="submit">save</button>
+        <div>
+            <a href="/log-in">Sign In</a>
         </div>
     </form>
 </div>
+
 </body>
 </html>

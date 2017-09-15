@@ -7,7 +7,7 @@ header.top {
     align-items: center;
     width: 100%;
     background: #f2f7e1;
-    height: 216px;
+    height: 60px;
 }
 
 header.top > div.header {
@@ -67,14 +67,12 @@ li.menu {
 }
 
 .menu a {
-    text-decoration: none;
     background: #f2f7e1;
     color: #82b4b1;
     padding: 10px;
     display: block;
     border-bottom: 1px solid #82b4b1;
     transition: 0.5s all;
-    font-size: 14px;
 }
 
 .menu a:hover {

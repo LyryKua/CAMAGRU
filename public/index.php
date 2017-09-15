@@ -3,7 +3,6 @@
  * Front controller
  */
 
-
 session_start();
 
 /*
@@ -21,13 +20,14 @@ $router = new Core\Router();
 $url = trim($_SERVER['QUERY_STRING'], '/');
 
 // Adding routes to the routing table
-$router->add('', ['controller' => 'Home', 'action' => 'index']);
+$router->add('', ['controller' => 'Post', 'action' => 'all']);
+$router->add('post', ['controller' => 'Post', 'action' => 'all']);
+$router->add('user', ['controller' => 'User', 'action' => 'index']);
 $router->add('sign-up', ['controller' => 'Authorization', 'action' => 'signUp']);
 $router->add('log-in', ['controller' => 'Authorization', 'action' => 'logIn']);
 $router->add('log-out', ['controller' => 'Authorization', 'action' => 'logOut']);
-$router->add('user', ['controller' => 'User', 'action' => 'index']);
 $router->add('reset-password', ['controller' => 'Authorization', 'action' => 'resetPassword']);
+$router->add('post/\d+', ['controller' => 'Post', 'action' => 'single']);
 $router->add('{controller}/{action}');
-//$router->add('{controller}/{id}/{action}');
 
 $router->dispatch($url);
