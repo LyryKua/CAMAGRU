@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>camagru</title>
+	<title><?php echo $title; ?></title>
     <style>
         body {
             padding: 0;
@@ -149,11 +149,11 @@
         }
 
     </style>
-    <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/blocks/menu.css">
 </head>
 <body>
 
-<?php require_once('blocks/header.php') ?>
+<?php require_once('blocks/menu.php') ?>
 
 <div class="form-container">
     <div class="form-header">

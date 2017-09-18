@@ -43,6 +43,7 @@ class Authorization extends \Core\Controller
 				if (UserModel::setActiveHash($login, $active_hash)) {
 					$this->sendRegMail($email, $login, $active_hash);
 				}
+				header('Location: /log-in');
 			} else {
 				$args['e'] = $e;
 			}
@@ -64,18 +65,22 @@ class Authorization extends \Core\Controller
 			$args['login'] = $login;
 			if ($login != '' && $this->checkLogin($login) && $pass != '') {
 				$row = UserModel::getUserByLogin($login);
-				var_dump($row);
 				if ($row !== false) {
 					if (password_verify($pass, $row['password'])) {
-						$_SESSION['logged_user'] = array(
-							'user_id' => $row['user_id'],
-							'login' => $row['login'],
-							'email' => $row['email'],
-							'firstname' => $row['firstname'],
-							'lastname' => $row['lastname'],
-							'avatar' => $row['avatar']
-						);
-						header('Location: /user');
+						if ($row['status'] == '1') {
+							$_SESSION['logged_user'] = array(
+								'user_id' => $row['user_id'],
+								'login' => $row['login'],
+								'email' => $row['email'],
+								'firstname' => $row['firstname'],
+								'lastname' => $row['lastname'],
+								'avatar' => $row['avatar']
+							);
+							header('Location: /user');
+						}
+						else {
+							$args['e'] = 'You must confirm your account!';
+						}
 					} else {
 						$args['e'] = 'Incorrect username or password';
 					}
@@ -89,17 +94,6 @@ class Authorization extends \Core\Controller
 		View::render('log-in.php', $args);
 	}
 
-	/**
-	 * This func sign-out an user
-	 *
-	 * @return void
-	 */
-	public function logOutAction()
-	{
-		unset($_SESSION['logged_user']);
-		header('Location: /');
-	}
-
 	public function resetPasswordAction()
 	{
 		View::render('reset-password1.php');
@@ -109,7 +103,7 @@ class Authorization extends \Core\Controller
 	 * checkParams($login, $email, $pass1, $pass2)
 	 *
 	 * The function checks params from sign up form. Func returns TRUE if all is OK. If
-	 * something wrong function returns error string (Example: 'Login is already taken').
+	 * something wrong function returns error string (example: 'Login is already taken').
 	 *
 	 * @param $login
 	 * @param $email
@@ -121,37 +115,25 @@ class Authorization extends \Core\Controller
 	{
 		$e = true;
 		if (!$this->checkLogin($login)) {
-			$e = 'Login may only contain alphanumeric characters and underscores. Maximum length is 16 characters';
+			$e = 'Login may only contain alphanumeric characters and underscores. Length must be between 3 and 16 characters';
 		} elseif (UserModel::getUserByLogin($login) !== false) {
 			$e = 'Login is already taken';
 		} elseif (UserModel::getUserByEmail($email) !== false) {
 			$e = 'Email is already taken';
+		} elseif (!$this->checkPass($pass1)) {
+			$e = 'Password may only contain alphanumeric characters, underscores, at signs, dollar signs and dashes. Length must be between 8 and 32 characters';
 		} elseif ($pass1 !== $pass2) {
 			$e = 'These passwords don\'t match';
 		}
 		return $e;
 	}
 
-//	private function checkLogInParam($login, $pass)
-//	{
-//		$e = true;
-//		if ($login == '' && $this->checkLogin($login) && $pass == '') {
-//
-//		} elseif (UserModel::getUserByLogin($login) !== false) {
-//			$e = 'Login is already taken';
-//		} elseif (UserModel::getUserByEmail($email) !== false) {
-//			$e = 'Email is already taken';
-//		} elseif ($pass1 !== $pass2) {
-//			$e = 'These passwords don\'t match';
-//		}
-//		return $e;
-//	}
-
 	/**
 	 * checkLogin($login)
 	 *
-	 * Login may only contain alphanumeric characters and underscores. Function returns TRUE if the user
-	 * has entered the correct login.
+	 * Login may only contain alphanumeric characters and underscores. Length must be
+	 * between 3 and 16 characters.
+	 * Function returns TRUE if the user has entered the correct login.
 	 *
 	 * @param $login
 	 * @return bool
@@ -160,6 +142,26 @@ class Authorization extends \Core\Controller
 	{
 		$pattern = '/^[a-z0-9_]{3,16}$/';
 		if (preg_match($pattern, $login)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * checkPass($pass)
+	 *
+	 * Password may only contain alphanumeric characters, underscores, at signs, dollar
+	 * signs and dashes. Function returns TRUE if the user has entered the correct login.
+	 * Length must be between 8 and 32 characters.
+	 * Function returns TRUE if the user has entered the correct password.
+	 *
+	 * @param $pass
+	 * @return bool
+	 */
+	private function checkPass($pass)
+	{
+		$pattern = '/^[\w@$-]{8,32}$/';
+		if (preg_match($pattern, $pass)) {
 			return true;
 		}
 		return false;

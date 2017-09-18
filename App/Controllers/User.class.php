@@ -31,6 +31,17 @@ class User extends \Core\Controller
 	}
 
 	/**
+	 * This func sign-out an user
+	 *
+	 * @return void
+	 */
+	public function logOutAction()
+	{
+		unset($_SESSION['logged_user']);
+		header('Location: /');
+	}
+
+	/**
 	 * add new picture
 	 *
 	 * @return void
@@ -58,5 +69,22 @@ class User extends \Core\Controller
 	public function changePasswordAction()
 	{
 		View::render('change-password.php');
+	}
+
+
+	/**
+	 * Before filter - called before an action method.
+	 *
+	 * @return void
+	 */
+	protected function before()
+	{
+		if (!isset($_SESSION['logged_user'])) {
+			$args = array('title' => 'camagru | Sign Up');
+			$args['e'] = 'You must Sign In before';
+			View::render('log-in.php', $args);
+			return false;
+		}
+		return true;
 	}
 }

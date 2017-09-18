@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>camagru</title>
+	<title><?php echo $title; ?></title>
     <style>
         body {
             padding: 0;
@@ -117,7 +117,7 @@
         }
 
     </style>
-    <link rel="stylesheet" type="text/css" href="/css/blocks/header_for_log-in.css">
+    <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 </head>
 <body>
 <header class="top">

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>camagru</title>
+	<title><?php echo $title; ?></title>
     <style>
         body {
             padding: 0;
@@ -117,23 +117,17 @@
         }
 
     </style>
-    <link rel="stylesheet" type="text/css" href="/css/blocks/header_for_log-in.css">
+    <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 </head>
 <body>
-<header class="top">
-    <div class="header">
-        <div class="content">
-            <div class="logo"><a href="/"><img src="/icons/logo2.png"></a></div>
-            <div class="user"><a href="/log-in"><img src="/icons/user3.png"></a></div>
-        </div>
-    </div>
-</header>
+
+<?php require_once('blocks/header.php'); ?>
 
 <div class="form-container">
     <div class="form-header">
         <h2>Sign In</h2>
     </div>
-    <form action="#" method="post">
+    <form action="/log-in" method="post">
 		<?php if (isset($verification)) : ?>
         <div>
             <?php echo $verification; ?>
@@ -146,9 +140,7 @@
 		} ?>">
         <label for="password">Password</label>
         <br>
-        <input type="password" id="password" name="password" value="password"<?php if (isset($e)) {
-			echo " autofocus";
-		} ?>>
+        <input type="password" id="password" name="password" value="password">
 		<?php if (isset($e)) {
 			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 20px;'>" . $e . "</div>";
 		} ?>

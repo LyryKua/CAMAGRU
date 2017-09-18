@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>camagru</title>
-    <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
+	<title><?php echo $title; ?></title>
+    <link rel="stylesheet" type="text/css" href="/css/blocks/menu.css">
     <link rel="stylesheet" type="text/css" href="/css/html.css">
     <style>
         main {
@@ -44,7 +44,9 @@
     </style>
 </head>
 <body>
-<?php require_once('blocks/header.php'); ?>
+
+<?php require_once('blocks/menu.php'); ?>
+
 <main>
     <div class="container">
         <div class="camera">
@@ -55,5 +57,6 @@
         </div>
     </div>
 </main>
+
 </body>
 </html>
