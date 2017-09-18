@@ -7,46 +7,40 @@ header.top {
     align-items: center;
     width: 100%;
     background: #f2f7e1;
-    height: 216px;
-}
-
-header.top > div.header {
-    display: flex;
-    justify-content: center;
+    height: 60px;
     border-bottom: 2px solid #82b4b1;
-    width: 100%;
 }
 
-header.top > div.header > div.content {
+div.content {
     display: flex;
     width: 700px;
     height: 60px;
 }
 
-header.top > div.header > div.content > div.logo {
+div.logo {
     flex-grow: 6;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-header.top > div.header > div.content > div.user {
+div.user {
     flex-grow: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-header.top > div.header > div.content a {
+div.content a {
     height: 50px;
     padding-top: 10px;
 }
 
-header.top > div.header > div.content img {
+div.content img {
     height: 80%;
 }
 
-div.content > div.user {
+div.user {
     margin-right: 26px;
 }
 
@@ -54,30 +48,4 @@ ul {
     margin: 0;
     padding: 0;
     list-style: none;
-}
-
-div.side {
-    width: 100%;
-    margin: 0;
-    text-align: center;
-}
-
-li.menu {
-    padding: 0;
-}
-
-.menu a {
-    text-decoration: none;
-    background: #f2f7e1;
-    color: #82b4b1;
-    padding: 10px;
-    display: block;
-    border-bottom: 1px solid #82b4b1;
-    transition: 0.5s all;
-    font-size: 14px;
-}
-
-.menu a:hover {
-    background: #dff1ec;
-    padding: 5px 10px 15px 10px;
 }
