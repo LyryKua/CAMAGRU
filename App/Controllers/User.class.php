@@ -27,7 +27,7 @@ class User extends \Core\Controller
 	 */
 	public function indexAction()
 	{
-		View::render('dashboard.php');
+		View::render('dashboard.php', ['title' => 'camagru | My Dashboard']);
 	}
 
 	/**
@@ -70,7 +70,6 @@ class User extends \Core\Controller
 	{
 		View::render('change-password.php');
 	}
-
 
 	/**
 	 * Before filter - called before an action method.

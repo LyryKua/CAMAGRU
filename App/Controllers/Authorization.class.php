@@ -27,6 +27,7 @@ class Authorization extends \Core\Controller
 	 */
 	public function signUpAction()
 	{
+		$file = 'sign-up.php';
 		$args = array('title' => 'camagru | Sign Up');
 		if (isset($_POST['submit'])) {
 			$login = htmlspecialchars(strtolower(trim($_POST['login'])));
@@ -43,12 +44,13 @@ class Authorization extends \Core\Controller
 				if (UserModel::setActiveHash($login, $active_hash)) {
 					$this->sendRegMail($email, $login, $active_hash);
 				}
-				header('Location: /log-in');
+				$file = 'log-in.php';
+				$args['e'] = 'Check your email. We sent you a letter';
 			} else {
 				$args['e'] = $e;
 			}
 		}
-		View::render('sign-up.php', $args);
+		View::render($file, $args);
 	}
 
 	/**
@@ -77,9 +79,10 @@ class Authorization extends \Core\Controller
 								'avatar' => $row['avatar']
 							);
 							header('Location: /user');
-						}
-						else {
+						} else {
 							$args['e'] = 'You must confirm your account!';
+							$_SESSION['login'] = $row['login'];
+							$_SESSION['email'] = $row['email'];
 						}
 					} else {
 						$args['e'] = 'Incorrect username or password';
@@ -90,6 +93,23 @@ class Authorization extends \Core\Controller
 			} else {
 				$args['e'] = 'Incorrect username or password';
 			}
+		}
+		View::render('log-in.php', $args);
+	}
+
+	/**
+	 * resendLetterAction()
+	 *
+	 * The function resend letter if user forgot confirm him account.
+	 */
+	public function resendLetterAction()
+	{
+		$args = array('title' => 'camagru | Sign In');
+		$login = $_SESSION['login'];
+		$email = $_SESSION['email'];
+		$active_hash = hash('md5', uniqid(rand(), true));
+		if (UserModel::setActiveHash($login, $active_hash)) {
+			$this->sendRegMail($email, $login, $active_hash);
 		}
 		View::render('log-in.php', $args);
 	}
@@ -196,8 +216,22 @@ class Authorization extends \Core\Controller
 				</body>
 				</html>
 			";
-		$headers = "Content-type: text/html; charset=\"UTF-8\" \r\n";
+		$headers = "Content-type: text/html; charset=\"UTF-8\"\r\n";
+		$headers .= "From: camagru <lyryk.ua@gmail.com> \r";
 		mail($email, "[camagru] Confirm your account", $message, $headers);
+	}
 
+	/**
+	 * Before filter - called before an action method.
+	 *
+	 * @return void
+	 */
+	protected function before()
+	{
+		if (isset($_SESSION['logged_user'])) {
+			View::render('dashboard.php', ['title' => 'camagru | My Dashboard']);
+			return false;
+		}
+		return true;
 	}
 }
