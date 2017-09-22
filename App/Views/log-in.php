@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title><?php echo $title; ?></title>
+	<title><?php echo (isset($title)) ? $title : "camagru"; ?></title>
 	<style>
 		body {
 			padding: 0;
@@ -143,11 +143,13 @@
 		<input type="password" id="password" name="password" value="password">
 		<?php if (isset($e)) {
 			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 2px;'>" . $e . "</div>";
-			echo "
+			if ($e == 'You must confirm your account!') {
+				echo "
 				<div style='text-align: center; color: rgba(130, 180, 177, 0.5); margin-bottom: 20px;'>
 					<a href='/authorization/resend-letter'>Resend Letter</a>
 				</div>
-			";
+				";
+			}
 		} ?>
 		<button type="submit" name="submit">Sign In</button>
 		<div>

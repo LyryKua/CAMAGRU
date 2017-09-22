@@ -8,6 +8,7 @@ header.top {
     width: 100%;
     background: #f2f7e1;
     height: 216px;
+    z-index: 1;
 }
 
 header.top > div.header {

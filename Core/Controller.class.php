@@ -61,6 +61,26 @@ abstract class Controller
 	}
 
 	/**
+	 * checkPass($pass)
+	 *
+	 * Password may only contain alphanumeric characters, underscores, at signs, dollar
+	 * signs and dashes. Function returns TRUE if the user has entered the correct login.
+	 * Length must be between 8 and 32 characters.
+	 * Function returns TRUE if the user has entered the correct password.
+	 *
+	 * @param $pass
+	 * @return bool
+	 */
+	protected function checkPass($pass)
+	{
+		$pattern = '/^[\w@$-]{8,32}$/';
+		if (preg_match($pattern, $pass)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Before filter - called before an action method.
 	 *
 	 * @return void

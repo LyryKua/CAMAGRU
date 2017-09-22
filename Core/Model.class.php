@@ -199,4 +199,20 @@ abstract class Model
 			$e->getMessage();
 		}
 	}
+
+	public static function deleteUser($user_id)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			DELETE FROM `users`
+			WHERE `user_id`=:user_id
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':user_id', $user_id);
+			$stmt->execute();
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+	}
 }

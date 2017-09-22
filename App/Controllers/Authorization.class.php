@@ -110,10 +110,16 @@ class Authorization extends \Core\Controller
 		$active_hash = hash('md5', uniqid(rand(), true));
 		if (UserModel::setActiveHash($login, $active_hash)) {
 			$this->sendRegMail($email, $login, $active_hash);
+			header('Location: /log-in');
 		}
 		View::render('log-in.php', $args);
 	}
 
+	/**
+	 * resetPasswordAction()
+	 *
+	 * The function take login and send mail for reset password.
+	 */
 	public function resetPasswordAction()
 	{
 		View::render('reset-password1.php');
@@ -135,14 +141,16 @@ class Authorization extends \Core\Controller
 	{
 		$e = true;
 		if (!$this->checkLogin($login)) {
-			$e = 'Login may only contain alphanumeric characters and underscores. Length must be between 3 and 16 characters';
+			$e = 'Login may only contain alphanumeric characters and underscores. Length must be
+						between 3 and 16 characters';
 		} elseif (UserModel::getUserByLogin($login) !== false) {
 			$e = 'Login is already taken';
 		} elseif (UserModel::getUserByEmail($email) !== false) {
 			$e = 'Email is already taken';
 		} elseif (!$this->checkPass($pass1)) {
-			$e = 'Password may only contain alphanumeric characters, underscores, at signs, dollar signs and dashes. Length must be between 8 and 32 characters';
-		} elseif ($pass1 !== $pass2) {
+			$e = 'Password may only contain alphanumeric characters, underscores, at signs, dollar signs and dashes.
+						Length must be between 8 and 32 characters';
+		} elseif ($pass1 != $pass2) {
 			$e = 'These passwords don\'t match';
 		}
 		return $e;
@@ -168,26 +176,6 @@ class Authorization extends \Core\Controller
 	}
 
 	/**
-	 * checkPass($pass)
-	 *
-	 * Password may only contain alphanumeric characters, underscores, at signs, dollar
-	 * signs and dashes. Function returns TRUE if the user has entered the correct login.
-	 * Length must be between 8 and 32 characters.
-	 * Function returns TRUE if the user has entered the correct password.
-	 *
-	 * @param $pass
-	 * @return bool
-	 */
-	private function checkPass($pass)
-	{
-		$pattern = '/^[\w@$-]{8,32}$/';
-		if (preg_match($pattern, $pass)) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * sendRegMail($email, $login, $active_hash)
 	 *
 	 * The function sends mail to $email after the new user registered.
@@ -205,12 +193,12 @@ class Authorization extends \Core\Controller
 				</head>
 				<body>
 				<p>Hello, <b>@" . $login . "</b>!</p>
-				<p>Help us secure your <a href='" . $_SERVER['SERVER_NAME'] . "' title='camagru'>camagru</a> account by verifying your email
+				<p>Help us secure your <a href='" . $_SERVER['HTTP_HOST'] . "' title='camagru'>camagru</a> account by verifying your email
 					address (" . $email . "). This lets you access all of camagru's features.</p>
-				<p><a href='http://localhost:8080/verification/click?action=registration&user=" . $email . "&key=" . $active_hash . "'>Verify email address</a></p>
+				<p><a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/verification/click?action=registration&user=" . $email . "&key=" . $active_hash . "'>Verify email address</a></p>
 				<hr>
 				<p>Button not working? Paste the following link into your browser:
-						http://localhost:8080/verification/click?action=registration&user=" . $email . "&key=" . $active_hash . "</p>
+						" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/verification/click?action=registration&user=" . $email . "&key=" . $active_hash . "</p>
 				<p>You’re receiving this email because you recently created a new camagru account. If this wasn’t you, please ignore
 					this email.</p>
 				</body>

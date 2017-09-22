@@ -44,7 +44,7 @@ class Verification extends \Core\Controller
 	 */
 	public function confirmEmail($email, $active_hash)
 	{
-		$args = array(['title' => 'camagru | Sign In']);
+		$args = array('title' => 'camagru | Sign In');
 		$row = UserModel::getUserByEmail($email);
 		var_dump($row);
 		if ($active_hash != $row['active_hash']) {

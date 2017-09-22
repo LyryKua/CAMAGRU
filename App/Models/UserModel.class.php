@@ -31,7 +31,7 @@ class UserModel extends \Core\Model
 			$sql = '
 			UPDATE `camagru`.`users`
 			SET `active_hash`=:active_hash, `active_time`=CURRENT_TIMESTAMP
-			WHERE `users`.`login`=:login;
+			WHERE `login`=:login;
 			';
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam(':active_hash', $active_hash);
@@ -64,6 +64,100 @@ class UserModel extends \Core\Model
 			WHERE `users`.`user_id`=:user_id;
 			';
 			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':user_id', $user_id);
+			if ($stmt->execute()) {
+				return true;
+			}
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+		return false;
+	}
+
+	/**
+	 * changeFirstnameAndLastname($firstname, $lastname, $user_id)
+	 *
+	 * Func sets value `firstname` and `lastname` in $firstname and $lastname. This func returns true if params
+	 * changed. And false if didn't
+	 *
+	 * @param $firstname
+	 * @param $lastname
+	 * @param $user_id
+	 * @return bool
+	 */
+	public static function changeFirstnameAndLastname($firstname, $lastname, $user_id)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			UPDATE `camagru`.`users`
+			SET `firstname`=:firstname, `lastname`=:lastname
+			WHERE `user_id`=:user_id;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':firstname', $firstname);
+			$stmt->bindParam(':lastname', $lastname);
+			$stmt->bindParam(':user_id', $user_id);
+			if ($stmt->execute()) {
+				return true;
+			}
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+		return false;
+	}
+
+	/**
+	 * changePassword($hash, $user_id)
+	 *
+	 * Func sets value `password` in $hash. This func returns true if params
+	 * changed. And false if didn't
+	 *
+	 * @param $hash
+	 * @param $user_id
+	 * @return bool
+	 */
+	public static function changePassword($hash, $user_id)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			UPDATE `users`
+			SET `password` = :hash
+			WHERE `user_id` = :user_id;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':hash', $hash);
+			$stmt->bindParam(':user_id', $user_id);
+			if ($stmt->execute()) {
+				return true;
+			}
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+		return false;
+	}
+
+	/**
+	 * changeAvatar($path, $user_id)
+	 *
+	 * Func sets value `avatar` in $path.
+	 *
+	 * @param $path
+	 * @param $user_id
+	 * @return bool
+	 */
+	public static function changeAvatar($path, $user_id)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			UPDATE `users`
+			SET `avatar` = :path
+			WHERE `user_id` = :user_id;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':path', $path);
 			$stmt->bindParam(':user_id', $user_id);
 			if ($stmt->execute()) {
 				return true;
