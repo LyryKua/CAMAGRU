@@ -203,7 +203,7 @@
 			   value="<?php echo (isset($lastname)) ? $lastname : $_SESSION['logged_user']['lastname']; ?>">
 		<label for="avatar">avatar</label>
 		<br>
-		<input type="file" id="avatar" name="avatar" accept="image/*">
+		<input type="file" id="avatar" name="avatar" accept="image/png; image/jpeg">
 		<div class="choose">
 			<span>Update Profile Picture</span>
 		</div>
