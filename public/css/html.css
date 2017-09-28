@@ -15,7 +15,7 @@ section.content {
 }
 
 article:first-child {
-    margin-top: 290px;
+    margin-top: 122px;
 }
 
 article {
@@ -83,7 +83,7 @@ div.photo > img {
     height: 24px;
     width: 24px;
     background-repeat: no-repeat;
-    background-image: url("https://www.instagram.com/static/bundles/sprite_core.png/db9f2a937bb8.png");
+    background-image: url(/templates/d642691e37e2.png);
 }
 
 section.like_comment_share > div {
@@ -101,15 +101,18 @@ a {
 }
 
 .like > a {
-    background-position: -218px -352px;
+    background-size: 429px 401px;
+    background-position: -50px -377px;
 }
 
 .comment > a {
-    background-position: -348px -352px;
+    background-size: 429px 401px;
+    background-position: -330px -346px;
 }
 
 .share > a {
-    background-position: -192px -352px;
+    background-size: 429px 401px;
+    background-position: -175px -377px;
 }
 
 span.login {
@@ -156,4 +159,8 @@ input {
     line-height: 18px;
     flex-grow: 1;
     background-color: transparent;
+}
+
+a:hover {
+    cursor: pointer;
 }

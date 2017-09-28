@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/css/html.css">
     <style>
         section.content > article {
-            margin: 290px 0 0;
+            margin: 122px 0 0;
         }
     </style>
 </head>
@@ -26,35 +26,57 @@ if (isset($_SESSION['logged_user'])) {
 ?>
 
 <section class="content">
-    <article>
-        <header class="avatar_login">
-            <div class="avatar">
-                <img src="/uploads/petrovalida/927213_648972511807873_1593024856_n.jpg">
-            </div>
-            <div class="login">
-                <span class="login">ivanchuk.maksim</span>
-            </div>
-        </header>
-        <div class="photo">
-            <img src="/uploads/petrovalida/927213_648972511807873_1593024856_n.jpg">
-        </div>
-        <div class="footer">
-            <section class="like_comment_share">
-                <div class="like"><a href="#">Like</a></div>
-                <div class="comment"><a href="#">Comment</a></div>
-                <div class="share"><a href="#">Share</a></div>
-            </section>
-            <div class="likes">42 likes</div>
-            <ul class="comments">
-                <li><span class="login">ivanchuk.maksim</span><span class="text">пвд начинается :)</span></li>
-                <li><span class="login">vikaplusak</span><span class="text">1 фессалоникийцам 5:18</span></li>
-                <li><span class="login">naty_ivanova_</span><span class="text">Ахах) веселые времена)</span></li>
-            </ul>
-            <form>
-                <input placeholder="Add a comment…">
-            </form>
-        </div>
-    </article>
+	<article>
+		<header class="avatar_login">
+			<div class="avatar">
+				<img src="/<?php echo $photo['avatar']; ?>">
+			</div>
+			<div class="login">
+				<span class="login"><?php echo $photo['login']; ?></span>
+			</div>
+		</header>
+		<div class="photo">
+			<img src="/<?php echo $photo['path']; ?>">
+		</div>
+		<div class="footer">
+			<?php if (isset($_SESSION['logged_user'])) : ?>
+				<section class="like_comment_share">
+					<div class="like">
+						<a href="#" data-photo-id="<?php echo $photo['photo_id']; ?>">Like</a>
+					</div>
+					<div class="comment">
+						<a onclick="comment()">Comment</a>
+					</div>
+				</section>
+				<div class="likes"><?php echo $photo['likes']; ?> likes</div>
+			<?php endif; ?>
+			<ul class="comments">
+				<?php foreach ($photo['comments'] as $comment) : ?>
+					<li>
+							<span class="login">
+								<?php echo $comment['login']; ?>
+							</span>
+						<span class="text">
+								<?php echo $comment['text']; ?>
+							</span>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+			<?php if (isset($_SESSION['logged_user'])) : ?>
+				<form action="#" method="post">
+					<input placeholder="Add a comment…" name='comment' id="<?php echo 'add_comment' . $photo_id; ?>">
+					<input type="hidden" name="photo_id" value="<?php echo $photo_id; ?>">
+				</form>
+			<?php endif; ?>
+		</div>
+	</article>
+
+	<script>
+		function comment() {
+			id.focus();
+		}
+	</script>
+
 </section>
 
 </body>

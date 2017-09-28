@@ -8,6 +8,7 @@
 
 namespace App\Controllers;
 
+use App\Models\PhotoModel;
 use App\Models\UserModel;
 use \Core\View;
 
@@ -27,7 +28,14 @@ class User extends \Core\Controller
 	 */
 	public function indexAction()
 	{
-		View::render('dashboard.php', ['title' => 'camagru | My Dashboard']);
+		$args = array('title' => 'camagru | My Dashboard');
+		$args['posts'] = PhotoModel::countPhotosByUserID($_SESSION['logged_user']['user_id']);
+		$photos = PhotoModel::getAllPhotos();
+		foreach ($photos as &$photo) {
+			$photo['comments'] = PhotoModel::getCommentsToPhoto($photo['photo_id']);
+		}
+		$args['photos'] = $photos;
+		View::render('dashboard.php', $args);
 	}
 
 	/**
@@ -48,8 +56,33 @@ class User extends \Core\Controller
 	 */
 	public function addPhotoAction()
 	{
-		View::render('add-photo.php');
+		$args = array('title' => 'camagru | Add Photo');
+		if (isset($_POST['submit'])) {
+			$dir = "uploads/" . $_SESSION['logged_user']['login'];
+			$img = $dir . '/' . time() . ".png";
+			if (!file_exists($dir)) {
+				mkdir($dir);
+			}
+			$base64 = $_POST['photo'];
+			$data = explode(',', $base64);
+			$photo = base64_decode($data[1]);
+			file_put_contents($img, $photo);
+			$source = imagecreatefrompng($img);
+			imageflip($source, IMG_FLIP_HORIZONTAL);
+			$frame = 'templates/frames/' . $_POST['frame'] . '.png';
+			$frame = imagecreatefrompng($frame);
+			imagecopyresized($source, $frame,
+				0, 0,
+				0, 0,
+				imagesx($source), imagesy($source),
+				imagesx($frame), imagesy($frame));
+			imagejpeg($source, $img);
+			PhotoModel::insertPhoto($img, $_SESSION['logged_user']['user_id']);
+		}
+		View::render('add-photo.php', $args);
 	}
+
+
 
 	/**
 	 * settingsAction()
@@ -87,7 +120,7 @@ class User extends \Core\Controller
 				if (!file_exists($dir)) {
 					mkdir($dir);
 				}
-				if ($this->savePhoto($dir)) {
+				if ($this->savePhoto($_FILES['avatar']['tmp_name'], $dir)) {
 					$path_to_avatar = $this->getPathToAvatar($dir);
 					if (UserModel::changeAvatar($path_to_avatar, $_SESSION['logged_user']['user_id'])) {
 						$this->deletePhoto($_SESSION['logged_user']['avatar']);
@@ -152,10 +185,10 @@ class User extends \Core\Controller
 	 * @param $to
 	 * @return bool
 	 */
-	private function savePhoto($to)
+	private function savePhoto($photo, $to)
 	{
 		$ava_name = $this->getPathToAvatar($to);
-		return (copy($_FILES['avatar']['tmp_name'], $ava_name));
+		return (copy($photo, $ava_name));
 	}
 
 	private function deletePhoto($path)

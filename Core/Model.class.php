@@ -185,7 +185,7 @@ abstract class Model
 		try {
 			$db = static::getDB();
 			$sql = '
-			INSERT INTO `camagru`.`users` (
+			INSERT INTO `users` (
 				`login`, `email`, `password`)
 			VALUES (
 				:login, :email, :password);

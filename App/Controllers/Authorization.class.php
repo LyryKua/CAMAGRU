@@ -217,7 +217,7 @@ class Authorization extends \Core\Controller
 	protected function before()
 	{
 		if (isset($_SESSION['logged_user'])) {
-			View::render('dashboard.php', ['title' => 'camagru | My Dashboard']);
+			header('Location: /user');
 			return false;
 		}
 		return true;
