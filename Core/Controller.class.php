@@ -80,6 +80,8 @@ abstract class Controller
 		return false;
 	}
 
+//	protected function getNotifications()
+
 	/**
 	 * Before filter - called before an action method.
 	 *

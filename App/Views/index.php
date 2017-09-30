@@ -9,6 +9,30 @@
 		<link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 	<?php endif; ?>
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
+	<style>
+		.pages{
+			display: flex;
+			/*align-items: center;*/
+			justify-content: center;
+		}
+
+		.pages > li a {
+			margin: 0 5px 20px;
+			text-decoration: none;
+			background: #f2f7e1;
+			color: #82b4b1;
+			padding: 10px;
+			display: block;
+			/*border-bottom: 1px solid #82b4b1;*/
+			transition: 0.5s all;
+			font-size: 14px;
+			border-radius: 4px;
+		}
+		li.middle a{
+			background: #82b4b1;
+			color: #f2f7e1;
+		}
+	</style>
 </head>
 <body>
 
@@ -40,13 +64,16 @@ if (isset($_SESSION['logged_user'])) {
 				<?php if (isset($_SESSION['logged_user'])) : ?>
 					<section class="like_comment_share">
 						<div class="like">
-							<a href="#" data-photo-id="<?php echo $item['photo_id']; ?>">Like</a>
+							<a <?php if (in_array(['user' => $_SESSION['logged_user']['user_id'], 0 => $_SESSION['logged_user']['user_id'], 'photo' => $item['photo_id'], 1 => $item['photo_id']], $like)) {
+								echo "class='liked'";
+							} ?> data-photo-id="<?php echo $item['photo_id']; ?>" onclick="addLike(this)">Like</a>
 						</div>
 						<div class="comment">
 							<a onclick="comment(<?php echo 'add_comment' . $item['photo_id']; ?>)">Comment</a>
 						</div>
 					</section>
-					<div class="likes"><?php echo $item['likes']; ?> likes</div>
+					<div class="likes" id="like<?php echo $item['photo_id']; ?>"><?php echo $item['likes']; ?> likes
+					</div>
 				<?php endif; ?>
 				<ul class="comments">
 					<?php foreach ($item['comments'] as $comment) : ?>
@@ -62,7 +89,8 @@ if (isset($_SESSION['logged_user'])) {
 				</ul>
 				<?php if (isset($_SESSION['logged_user'])) : ?>
 					<form action="#" method="post">
-						<input placeholder="Add a comment…" name='comment' id="<?php echo 'add_comment' . $item['photo_id']; ?>">
+						<input placeholder="Add a comment…" name='comment'
+							   id="<?php echo 'add_comment' . $item['photo_id']; ?>">
 						<input type="hidden" name="photo_id" value="<?php echo $item['photo_id']; ?>">
 					</form>
 				<?php endif; ?>
@@ -74,6 +102,14 @@ if (isset($_SESSION['logged_user'])) {
 			id.focus();
 		}
 	</script>
+	<script src="js/like.js"></script>
 </section>
+	<ul class="pages">
+		<li><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li class="middle"><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+	</ul>
 </body>
 </html>

@@ -14,9 +14,9 @@
 					console.log("test");
 					var ul = document.querySelector('ul');
 					var head = document.getElementById('top');
-					if (head.style.height != 216 + 'px') {
+					if (head.style.height != 255 + 'px') {
 						ul.style.display = 'block';
-						head.style.height = 216 + 'px';
+						head.style.height = 255 + 'px';
 					} else {
 						ul.style.display = 'none';
 						head.style.height = 62 + 'px';
@@ -27,6 +27,7 @@
 		</div>
 	</div>
 	<ul class="menu">
+		<li class="menu"><a href="/user/notification">notifications</a></li>
 		<li class="menu"><a href="/user">dashboard</a></li>
 		<li class="menu"><a href="/user/add-photo">add new photo</a></li>
 		<li class="menu"><a href="/user/settings">settings</a></li>

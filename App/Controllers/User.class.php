@@ -8,8 +8,11 @@
 
 namespace App\Controllers;
 
+use App\Models\NotificationsModel;
 use App\Models\PhotoModel;
 use App\Models\UserModel;
+use App\Models\CommentModel;
+use App\Models\LikeModel;
 use \Core\View;
 
 /**
@@ -29,12 +32,21 @@ class User extends \Core\Controller
 	public function indexAction()
 	{
 		$args = array('title' => 'camagru | My Dashboard');
+		if (isset($_POST['comment']) && $_POST['comment'] != '') {
+			$text = htmlspecialchars($_POST['comment']);
+			CommentModel::insertComment($text, $_SESSION['logged_user']['user_id'], $_POST['photo_id']);
+			header('Location: /' . $_SERVER['QUERY_STRING']);
+			exit();
+		}
 		$args['posts'] = PhotoModel::countPhotosByUserID($_SESSION['logged_user']['user_id']);
-		$photos = PhotoModel::getAllPhotos();
+		$photos = PhotoModel::getPhotosByUserID($_SESSION['logged_user']['user_id']);
 		foreach ($photos as &$photo) {
 			$photo['comments'] = PhotoModel::getCommentsToPhoto($photo['photo_id']);
 		}
 		$args['photos'] = $photos;
+		if (isset($_SESSION['logged_user'])) {
+			$args['like'] = LikeModel::getUserLike($_SESSION['logged_user']['user_id']);
+		}
 		View::render('dashboard.php', $args);
 	}
 
@@ -81,8 +93,6 @@ class User extends \Core\Controller
 		}
 		View::render('add-photo.php', $args);
 	}
-
-
 
 	/**
 	 * settingsAction()
@@ -167,6 +177,21 @@ class User extends \Core\Controller
 			}
 		}
 		View::render('change-password.php', $args);
+	}
+
+	public function notificationAction()
+	{
+		$args['title'] = 'camagru | Notification';
+		if (isset($_POST['submit'])) {
+//			var_dump($args['notification']);
+			NotificationsModel::deleteNotificationForUser($_SESSION['logged_user']['user_id']);
+		}
+
+//		$user_id = $_SESSION['logged_user']['user_id'];
+		$args['notification'] = NotificationsModel::getNotificationForUser($_SESSION['logged_user']['user_id']);
+
+//		var_dump($args['notification']);
+		View::render('notifications.php', $args);
 	}
 
 	private function checkFirstnameAndLastname($name)

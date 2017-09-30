@@ -77,7 +77,7 @@ class PhotoModel extends \Core\Model
 			$sql = '
 			SELECT * FROM `photos`
 			WHERE `user_id` = :user_id
-			ORDER BY photo_id DESC;
+			ORDER BY photo_id DESC
 			';
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam(':user_id', $user_id);
@@ -117,18 +117,18 @@ class PhotoModel extends \Core\Model
 	 * Function returns false, if the comments was not found
 	 *
 	 * array (size=2)
-	 * 		0 =>
-	 * 			array (size=4)
-	 * 				'text' => string 'Luke, I am your father' (length=22)
-	 * 				0 => string 'Luke, I am your father' (length=22)
-	 * 				'login' => string 'darth_vader' (length=11)
-	 * 				1 => string 'darth_vader' (length=11)
-	 * 		1 =>
-	 * 			array (size=4)
-	 * 				'text' => string 'Noooooooooooo!' (length=14)
-	 * 				0 => string 'Noooooooooooo!' (length=14)
-	 * 				'login' => string 'luke' (length=4)
-	 * 				1 => string 'Luke' (length=4)
+	 *        0 =>
+	 *            array (size=4)
+	 *                'text' => string 'Luke, I am your father' (length=22)
+	 *                0 => string 'Luke, I am your father' (length=22)
+	 *                'login' => string 'darth_vader' (length=11)
+	 *                1 => string 'darth_vader' (length=11)
+	 *        1 =>
+	 *            array (size=4)
+	 *                'text' => string 'Noooooooooooo!' (length=14)
+	 *                0 => string 'Noooooooooooo!' (length=14)
+	 *                'login' => string 'luke' (length=4)
+	 *                1 => string 'Luke' (length=4)
 	 *
 	 *
 	 * @param $photo_id
@@ -173,5 +173,39 @@ class PhotoModel extends \Core\Model
 			$e->getMessage();
 		}
 		return $row;
+	}
+
+	public static function like($photo_id)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			UPDATE `photos`
+			SET `likes` = `likes` + 1
+			WHERE `photo_id` = :photo_id;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':photo_id', $photo_id);
+			$stmt->execute();
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+	}
+
+	public static function dislike($photo_id)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			UPDATE `photos`
+			SET `likes` = `likes` - 1
+			WHERE `photo_id` = :photo_id;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':photo_id', $photo_id);
+			$stmt->execute();
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
 	}
 }

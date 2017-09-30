@@ -70,7 +70,7 @@ abstract class Model
 			$db = static::getDB();
 			$sql = '
 			SELECT *
-			FROM `camagru`.`users`
+			FROM `users`
 			WHERE `user_id`=?;
 			';
 			$stmt = $db->prepare($sql);
@@ -114,7 +114,7 @@ abstract class Model
 			$db = static::getDB();
 			$sql = '
 			SELECT *
-			FROM `camagru`.`users`
+			FROM `users`
 			WHERE `login`=?;
 			';
 			$stmt = $db->prepare($sql);
@@ -158,7 +158,7 @@ abstract class Model
 			$db = static::getDB();
 			$sql = '
 			SELECT *
-			FROM `camagru`.`users`
+			FROM `users`
 			WHERE `email`=?;
 			';
 			$stmt = $db->prepare($sql);
@@ -206,7 +206,7 @@ abstract class Model
 			$db = static::getDB();
 			$sql = '
 			DELETE FROM `users`
-			WHERE `user_id`=:user_id
+			WHERE `user_id` = :user_id
 			';
 			$stmt = $db->prepare($sql);
 			$stmt->bindParam(':user_id', $user_id);

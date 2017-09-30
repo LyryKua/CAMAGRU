@@ -46,7 +46,7 @@
 
 	<div class="user_main">
 		<div style="background: url(<?php echo $_SESSION['logged_user']['avatar']; ?>);
-				background-size: cover;" class="avatar">
+				background-size: cover; background-position: center center;" class="avatar">
 		</div>
 		<div class="info">
 			<h1 class="login"><?php echo $_SESSION['logged_user']['login']; ?></h1>
@@ -59,7 +59,7 @@
 		<article>
 			<header class="avatar_login">
 				<div class="avatar">
-					<img src="/<?php echo $item['path']; ?>">
+					<img src="/<?php echo $_SESSION['logged_user']['avatar']; ?>">
 				</div>
 				<div class="login">
 					<span class="login"><?php echo $_SESSION['logged_user']['login']; ?></span>
@@ -73,11 +73,16 @@
 
 			<div class="footer">
 				<section class="like_comment_share">
-					<div class="like"><a href="#" data-photo-id="<?php echo $item['photo_id']; ?>">Like</a></div>
-					<div class="comment"><a href="#">Comment</a></div>
-					<div class="share"><a href="#">Share</a></div>
+					<div class="like">
+						<a <?php if (in_array(['user' => $_SESSION['logged_user']['user_id'], 0 => $_SESSION['logged_user']['user_id'], 'photo' => $item['photo_id'], 1 => $item['photo_id']], $like)) {
+							echo "class='liked'";
+						} ?> data-photo-id="<?php echo $item['photo_id']; ?>" onclick="addLike(this)">Like</a>
+					</div>
+					<div class="comment">
+						<a onclick="comment(<?php echo 'add_comment' . $item['photo_id']; ?>)">Comment</a>
+					</div>
 				</section>
-				<div class="likes"><?php echo $item['likes']; ?> likes</div>
+				<div class="likes" id="like<?php echo $item['photo_id']; ?>"><?php echo $item['likes']; ?> likes</div>
 				<ul class="comments">
 					<?php foreach ($item['comments'] as $comment) : ?>
 						<li>
@@ -91,11 +96,20 @@
 					<?php endforeach; ?>
 				</ul>
 				<form action="#" method="post">
-					<input placeholder="Add a comment…">
+					<input placeholder="Add a comment…" name='comment'
+						   id="<?php echo 'add_comment' . $item['photo_id']; ?>">
+					<input type="hidden" name="photo_id" value="<?php echo $item['photo_id']; ?>">
 				</form>
 			</div>
+
 		</article>
 	<?php endforeach; ?>
+	<script>
+		function comment(id) {
+			id.focus();
+		}
+	</script>
+	<script src="js/like.js"></script>
 </section>
 </body>
 </html>

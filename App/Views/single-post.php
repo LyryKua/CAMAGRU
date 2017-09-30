@@ -42,13 +42,15 @@ if (isset($_SESSION['logged_user'])) {
 			<?php if (isset($_SESSION['logged_user'])) : ?>
 				<section class="like_comment_share">
 					<div class="like">
-						<a href="#" data-photo-id="<?php echo $photo['photo_id']; ?>">Like</a>
+						<a <?php if (in_array(['user' => $_SESSION['logged_user']['user_id'], 0 => $_SESSION['logged_user']['user_id'], 'photo' => $photo['photo_id'], 1 => $photo['photo_id']], $like)) {
+							echo "class='liked'";
+						} ?> data-photo-id="<?php echo $photo['photo_id']; ?>" onclick="addLike(this)">Like</a>
 					</div>
 					<div class="comment">
 						<a onclick="comment()">Comment</a>
 					</div>
 				</section>
-				<div class="likes"><?php echo $photo['likes']; ?> likes</div>
+				<div class="likes" id="like<?php echo $photo['photo_id']; ?>"><?php echo $photo['likes']; ?> likes</div>
 			<?php endif; ?>
 			<ul class="comments">
 				<?php foreach ($photo['comments'] as $comment) : ?>
@@ -64,7 +66,7 @@ if (isset($_SESSION['logged_user'])) {
 			</ul>
 			<?php if (isset($_SESSION['logged_user'])) : ?>
 				<form action="#" method="post">
-					<input placeholder="Add a comment…" name='comment' id="<?php echo 'add_comment' . $photo_id; ?>">
+					<input placeholder="Add a comment…" name='comment' id="add_comment">
 					<input type="hidden" name="photo_id" value="<?php echo $photo_id; ?>">
 				</form>
 			<?php endif; ?>
@@ -73,10 +75,10 @@ if (isset($_SESSION['logged_user'])) {
 
 	<script>
 		function comment() {
-			id.focus();
+			add_comment.focus();
 		}
 	</script>
-
+	<script src="/js/like.js"></script>
 </section>
 
 </body>

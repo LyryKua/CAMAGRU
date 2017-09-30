@@ -41,10 +41,11 @@ div.avatar {
 }
 
 div.avatar > img {
-    width: 30px;
-    height: 30px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     flex-grow: 0;
+    object-fit: cover;
 }
 
 div.login {
@@ -105,6 +106,10 @@ a {
     background-position: -50px -377px;
 }
 
+a.liked {
+    background-position-x: -25px;
+}
+
 .comment > a {
     background-size: 429px 401px;
     background-position: -330px -346px;
@@ -117,6 +122,10 @@ a {
 
 span.login {
     font-weight: 600;
+}
+
+span.text {
+    word-wrap: break-word;
 }
 
 div.likes {
