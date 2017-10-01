@@ -27,7 +27,7 @@
 		} ?>">
 		<label for="password">Password</label>
 		<br>
-		<input type="password" id="password" name="password" value="password">
+		<input type="password" id="password" name="password">
 		<?php if (isset($e)) {
 			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 2px;'>" . $e . "</div>";
 			if ($e == 'You must confirm your account!') {

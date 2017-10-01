@@ -27,10 +27,10 @@
 		} ?>">
         <label for="password1">Password</label>
         <br>
-        <input type="password" id="password1" name="pass1" value="password">
+        <input type="password" id="password1" name="pass1">
         <label for="password2">confirm password</label>
         <br>
-        <input type="password" id="password2" name="pass2" value="password">
+        <input type="password" id="password2" name="pass2">
 		<?php if (isset($e)) {
 			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 20px;'>" . $e . "</div>";
 		} ?>
