@@ -64,30 +64,8 @@
 			background-color: transparent;
 		}
 
-		form.set input[type="file"] {
-			opacity: 0;
-			position: absolute;
-			cursor: pointer;
-			z-index: 0;
-		}
-
-		div.choose {
-			display: flex;
-			border: 1px solid #82b4b1;
-			height: 32px;
-			border-radius: 3px;
-			width: 95%;
-			margin: 0 auto;
-		}
-
 		div.choose > span {
 			margin: auto;
-			color: #82b4b1;
-		}
-
-		div.path {
-			font-size: 0.7em;
-			margin: 0 auto 20px;
 			color: #82b4b1;
 		}
 
@@ -115,7 +93,6 @@
 		}
 
 		form.set button:hover {
-			/*border-bottom: 6px solid #e0f2ed;*/
 			transition: 0.5s all;
 			color: #e0f2ed;
 			background-color: #82b4b1;
@@ -204,12 +181,6 @@
 		<label for="avatar">avatar</label>
 		<br>
 		<input type="file" id="avatar" name="avatar" accept="image/png; image/jpeg">
-		<div class="choose">
-			<span>Update Profile Picture</span>
-		</div>
-		<div class="path">
-			path/to/file.jpg
-		</div>
 		<div>
 			<a class="change-password" href="/user/change-password">Change Password</a>
 		</div>

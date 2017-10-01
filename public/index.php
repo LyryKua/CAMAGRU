@@ -31,4 +31,3 @@ $router->add('post/\d+', ['controller' => 'Post', 'action' => 'single']);
 $router->add('{controller}/{action}');
 
 $router->dispatch($url);
-//var_dump($_SESSION['logged_user']);

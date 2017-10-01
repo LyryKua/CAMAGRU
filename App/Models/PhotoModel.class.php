@@ -44,20 +44,39 @@ class PhotoModel extends \Core\Model
 	 *
 	 * @return bool|mixed
 	 */
-	public static function getAllPhotos()
+	public static function get10Photos($offset)
+	{
+		$row = false;
+		try {
+			$db = static::getDB();
+			$sql = "
+			SELECT `p`.*, `u`.`login`, `u`.`avatar` FROM `photos` AS `p`
+			LEFT JOIN `users` AS `u`
+			ON `p`.`user_id` = `u`.`user_id`
+			ORDER BY `photo_id` DESC
+			LIMIT 10 OFFSET $offset;
+			";
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			$row = $stmt->fetchAll();
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+		return ($row);
+	}
+
+	public static function countAllPhotos()
 	{
 		$row = false;
 		try {
 			$db = static::getDB();
 			$sql = '
-			SELECT `p`.*, `u`.`login`, `u`.`avatar` FROM `photos` AS `p`
-			LEFT JOIN `users` AS `u`
-			ON `p`.`user_id` = `u`.`user_id`
-			ORDER BY `photo_id` DESC;
+			SELECT COUNT(*) FROM `photos`
 			';
 			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':user_id', $user_id);
 			$stmt->execute();
-			$row = $stmt->fetchAll();
+			$row = $stmt->fetch()[0];
 		} catch (\PDOException $e) {
 			$e->getMessage();
 		}

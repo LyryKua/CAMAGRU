@@ -17,7 +17,6 @@ var context = canvas.getContext('2d');
 
 canvas.width = 640;
 canvas.height = 480;
-canvas.style.backgroundColor = 'red';
 canvas.style.transform = 'scaleX(-1)';
 
 function handleSuccess(stream) {

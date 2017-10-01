@@ -43,7 +43,15 @@ class Post extends \Core\Controller
 			header('Location: /' . $_SERVER['QUERY_STRING']);
 			exit();
 		}
-		$photos = PhotoModel::getAllPhotos();
+		$counter = PhotoModel::countAllPhotos();
+		$max_page = ceil($counter / 10);
+		if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $max_page) {
+			$page = $_GET['page'];
+		} else {
+			$page = 1;
+		}
+		$offset = ($page - 1) * 10;
+		$photos = PhotoModel::get10Photos($offset);
 		foreach ($photos as &$photo) {
 			$photo['comments'] = PhotoModel::getCommentsToPhoto($photo['photo_id']);
 		}
@@ -51,7 +59,8 @@ class Post extends \Core\Controller
 		if (isset($_SESSION['logged_user'])) {
 			$args['like'] = LikeModel::getUserLike($_SESSION['logged_user']['user_id']);
 		}
-//		var_dump($args['like']);
+		$args['pages'] = array($page - 2, $page - 1, $page + 0, $page + 1, $page + 2);
+		$args['max_page'] = $max_page;
 		View::render('index.php', $args);
 	}
 

@@ -10,7 +10,7 @@
 	<?php endif; ?>
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
 	<style>
-		.pages{
+		.pages {
 			display: flex;
 			/*align-items: center;*/
 			justify-content: center;
@@ -28,7 +28,8 @@
 			font-size: 14px;
 			border-radius: 4px;
 		}
-		li.middle a{
+
+		li.middle a {
 			background: #82b4b1;
 			color: #f2f7e1;
 		}
@@ -104,12 +105,16 @@ if (isset($_SESSION['logged_user'])) {
 	</script>
 	<script src="js/like.js"></script>
 </section>
-	<ul class="pages">
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li class="middle"><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-	</ul>
+<ul class="pages">
+	<?php foreach ($pages as $number => $item) : ?>
+		<?php if ($item > 0 && $item <= $max_page) : ?>
+			<?php if ($number == 2) : ?>
+				<li class="middle"><a href="/?page=<?php echo $item; ?>"><?php echo $item; ?></a></li>
+			<?php else : ?>
+				<li><a href="/?page=<?php echo $item; ?>"><?php echo $item; ?></a></li>
+			<?php endif; ?>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</ul>
 </body>
 </html>

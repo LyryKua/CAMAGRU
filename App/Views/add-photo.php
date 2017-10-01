@@ -105,6 +105,14 @@
 			margin: 0;
 			padding: 0;
 			border: none;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			/*justify-content: center;*/
+		}
+
+		form > input {
+			margin: auto;
 		}
 
 		button {
@@ -130,25 +138,9 @@
 		/*background-color: #82b4b1;*/
 		/*}*/
 
-		a {
-			text-decoration: underline;
-			/*background: #f2f7e1;*/
-			color: #87d1d0;
-			cursor: pointer;
-			/*padding: 10px;*/
-			/*display: block;*/
-			/*border-bottom: 1px solid #82b4b1;*/
-			/*transition: 0.5s all;*/
-			/*font-size: 14px;*/
-		}
-
-		input#file {
-			display: none;
-		}
-
 	</style>
 </head>
-<body>
+<body id="dad">
 
 <?php require_once('blocks/menu.php'); ?>
 
@@ -163,11 +155,10 @@
 			<div class="frame tv" onclick="tv()"></div>
 			<div class="frame bunny" onclick="bunny()"></div>
 		</div>
-		<div class="caption">
-			click on own picture or <a id="add">choose</a> file
-		</div>
 		<form action="#" method="post">
-			<input type="file" accept="image/*" id="file">
+			<div class="caption">
+				click on own picture or <input type="file" accept="image/*" id="file">
+			</div>
 			<input type="hidden" name="photo" value="" id="photo">
 			<input type="hidden" name="frame" value="tv" id="frame">
 			<button type="submit" name="submit" disabled id="upload">UPLOAD</button>
@@ -191,12 +182,8 @@
 
 			}
 		</script>
-		<script>
-			add.onclick = function () {
-				file.click();
-			}
-		</script>
 		<script src="/js/camera.js"></script>
+		<script src="/js/upload.js"></script>
 	</div>
 </main>
 
