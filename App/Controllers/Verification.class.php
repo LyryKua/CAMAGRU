@@ -25,12 +25,24 @@ class Verification extends \Core\Controller
 	{
 		if (isset($_GET['action']) && $_GET['action'] == 'registration') {
 			$this->confirmEmail($_GET['user'], $_GET['key']);
+		} elseif (isset($_GET['action']) && $_GET['action'] == 'reset') {
+			$this->resetPassword($_GET['user'], $_GET['key']);
 		}
 	}
 
-	public function resetPassword()
+	public function resetPassword($email, $active_hash)
 	{
-		View::render('reset-password2.php');
+		$row = UserModel::getUserByEmail($email);
+		if ($active_hash != $row['active_hash']) {
+			header('Location: /404');
+		} elseif ((time() - strtotime($row['active_time'])) > 10800) {
+			header('Location: /404');
+		} else {
+			$_SESSION['user_id'] = $row['user_id'];
+			UserModel::delActiveHash($email);
+			header('Location: /new-password');
+		}
+
 	}
 
 	/**
@@ -46,11 +58,8 @@ class Verification extends \Core\Controller
 	{
 		$args = array('title' => 'camagru | Sign In');
 		$row = UserModel::getUserByEmail($email);
-		var_dump($row);
 		if ($active_hash != $row['active_hash']) {
 			$args['e'] = 'Wrong key! Fuck you cheater';
-		} elseif ((time() - strtotime($row['active_time'])) > 10800) {
-			$args['e'] = 'You are late';
 		} elseif ($row['status'] == '1') {
 			$args['verification'] = 'Your account already activated';
 		} else {
@@ -59,5 +68,27 @@ class Verification extends \Core\Controller
 			}
 		}
 		View::render('log-in.php', $args);
+	}
+
+	public function newPasswordAction()
+	{
+		$file = 'reset-password2.php';
+		$args = array('title' => 'camagru | Reset Password');
+		if (isset($_POST['submit'])) {
+			$password1 = htmlspecialchars(strtolower(trim($_POST['password1'])));
+			$password2 = htmlspecialchars(strtolower(trim($_POST['password2'])));
+			if (!$this->checkPass($password1)) {
+				$args['e'] = 'Password may only contain alphanumeric characters, underscores, at signs, dollar signs
+				and dashes. Length must be between 8 and 32 characters';
+			} elseif ($password1 != $password2) {
+				$args['e'] = 'These passwords don\'t match';
+			} else {
+				$pass = password_hash($password1, PASSWORD_DEFAULT);
+				UserModel::changePassword($pass, $_SESSION['user_id']);
+				$file = 'log-in.php';
+				$args['e'] = 'Password changed!';
+			}
+		}
+		View::render($file, $args);
 	}
 }

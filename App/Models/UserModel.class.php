@@ -167,4 +167,21 @@ class UserModel extends \Core\Model
 		}
 		return false;
 	}
+
+	public static function delActiveHash($email)
+	{
+		try {
+			$db = static::getDB();
+			$sql = "
+			UPDATE `users`
+			SET `active_hash` = NULL, `active_time` = NULL
+			WHERE `email` = :email;
+			";
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':email', $email);
+			$stmt->execute();
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+	}
 }

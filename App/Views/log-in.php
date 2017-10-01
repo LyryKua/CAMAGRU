@@ -22,12 +22,12 @@
 		<?php endif ?>
 		<label for="login">Login</label>
 		<br>
-		<input type="text" id="login" name="login" value="<?php if (isset($login)) {
-			echo $login;
-		} ?>">
+		<input type="text" id="login" name="login"<?php if (isset($login)) {
+			echo "value='" . $login . "'";
+		} ?> required>
 		<label for="password">Password</label>
 		<br>
-		<input type="password" id="password" name="password">
+		<input type="password" id="password" name="password" required>
 		<?php if (isset($e)) {
 			echo "<div style='color: #ed4956; font-size: 1.3em; margin-bottom: 2px;'>" . $e . "</div>";
 			if ($e == 'You must confirm your account!') {

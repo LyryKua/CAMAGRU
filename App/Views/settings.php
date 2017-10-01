@@ -23,11 +23,11 @@
 		<label for="firstname">firstname</label>
 		<br>
 		<input type="text" id="firstname" name="firstname"
-			   value="<?php echo (isset($firstname)) ? $firstname : $_SESSION['logged_user']['firstname']; ?>">
+			   value="<?php echo (isset($firstname)) ? $firstname : $_SESSION['logged_user']['firstname']; ?>" required>
 		<label for="lastname">lastname</label>
 		<br>
 		<input type="text" id="lastname" name="lastname"
-			   value="<?php echo (isset($lastname)) ? $lastname : $_SESSION['logged_user']['lastname']; ?>">
+			   value="<?php echo (isset($lastname)) ? $lastname : $_SESSION['logged_user']['lastname']; ?>" required>
 		<label for="avatar">avatar</label>
 		<br>
 		<input type="file" id="avatar" name="avatar" accept="image/png; image/jpeg">

@@ -122,7 +122,27 @@ class Authorization extends \Core\Controller
 	 */
 	public function resetPasswordAction()
 	{
-		View::render('reset-password1.php');
+		$args = array('title' => 'camagru | Reset Password');
+		if (isset($_POST['submit'])) {
+			$login = htmlspecialchars(strtolower(trim($_POST['login'])));
+			$args['login'] = $login;
+			if ($this->checkLogin($login)) {
+				$row = UserModel::getUserByLogin($login);
+				if ($row !== false) {
+					$active_hash = hash('md5', uniqid(rand(), true));
+					if (UserModel::setActiveHash($login, $active_hash)) {
+						$email = UserModel::getUserByLogin($login)['email'];
+						$this->sendResetMail($email, $active_hash);
+						$args['e'] = 'Check your email. We sent you a letter';
+					}
+				} else {
+					$args['e'] = 'Login does not exist!';
+				}
+			} else {
+				$args['e'] = 'Wrong login!';
+			}
+		}
+		View::render('reset-password1.php', $args);
 	}
 
 	/**
@@ -207,6 +227,27 @@ class Authorization extends \Core\Controller
 		$headers = "Content-type: text/html; charset=\"UTF-8\"\r\n";
 		$headers .= "From: camagru <lyryk.ua@gmail.com> \r";
 		mail($email, "[camagru] Confirm your account", $message, $headers);
+	}
+
+	private function sendResetMail($email, $active_hash)
+	{
+		$message = "
+				<html lang='en'>
+				<head>
+					<title>Reset Password</title>
+				</head>
+				<body>
+				<p>We heard that you lost your camagru password. Sorry about that! But don’t worry! You can use the
+				following link within the next day to reset your password:
+						" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/verification/click?action=reset&user=" . $email . "&key=" . $active_hash . "</p>
+				<p>If you don’t use this link within 3 hours, it will expire. To get a new password reset link, visit" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/reset-password</p>
+				<p>Thanks, Your friends at camagru</p>
+				</body>
+				</html>
+			";
+		$headers = "Content-type: text/html; charset=\"UTF-8\"\r\n";
+		$headers .= "From: camagru <lyryk.ua@gmail.com> \r";
+		mail($email, "[camagru] Reset password", $message, $headers);
 	}
 
 	/**

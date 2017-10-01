@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 	<title><?php echo $title; ?></title>
 	<link rel="stylesheet" type="text/css" href="/css/reset-password2.css">
-    <link rel="stylesheet" type="text/css" href="/css/blocks/header_for_log-in.css">
+    <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 </head>
 <body>
 <header class="top">
@@ -27,7 +27,7 @@
         <label for="password2">confirm password</label>
         <br>
         <input type="password" id="password2" name="password2">
-        <button type="submit">Reset password</button>
+        <button type="submit" name="submit">Reset password</button>
         <div>
             <a href="/log-in">Sign In</a>
             |

@@ -183,14 +183,9 @@ class User extends \Core\Controller
 	{
 		$args['title'] = 'camagru | Notification';
 		if (isset($_POST['submit'])) {
-//			var_dump($args['notification']);
 			NotificationsModel::deleteNotificationForUser($_SESSION['logged_user']['user_id']);
 		}
-
-//		$user_id = $_SESSION['logged_user']['user_id'];
 		$args['notification'] = NotificationsModel::getNotificationForUser($_SESSION['logged_user']['user_id']);
-
-//		var_dump($args['notification']);
 		View::render('notifications.php', $args);
 	}
 
