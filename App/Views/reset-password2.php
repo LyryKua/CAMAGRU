@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 	<title><?php echo $title; ?></title>
-	<link rel="stylesheet" type="text/css" href="/css/blocks/reset-password2.css">
+	<link rel="stylesheet" type="text/css" href="/css/reset-password2.css">
     <link rel="stylesheet" type="text/css" href="/css/blocks/header_for_log-in.css">
 </head>
 <body>

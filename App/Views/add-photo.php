@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/blocks/menu.css">
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
 	<script src="/js/camera.js"></script>
-	<link rel="stylesheet" type="text/css" href="/css/blocks/add-photo.css">
+	<link rel="stylesheet" type="text/css" href="/css/add-photo.css">
 </head>
 <body>
 

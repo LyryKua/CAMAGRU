@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 	<title><?php echo $title; ?></title>
     <link rel="stylesheet" type="text/css" href="/css/blocks/menu.css">
-	<link rel="stylesheet" type="text/css" href="/css/blocks/change-password.css">
+	<link rel="stylesheet" type="text/css" href="/css/change-password.css">
 </head>
 <body>
 

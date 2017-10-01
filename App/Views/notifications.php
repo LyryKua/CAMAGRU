@@ -5,7 +5,7 @@
 	<title><?php echo $title; ?></title>
 	<link rel="stylesheet" type="text/css" href="/css/blocks/menu.css">
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
-	<link rel="stylesheet" type="text/css" href="/css/blocks/notifications.css">
+	<link rel="stylesheet" type="text/css" href="/css/notifications.css">
 </head>
 <body>
 

@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title><?php echo (isset($title)) ? $title : "camagru"; ?></title>
-	<link rel="stylesheet" type="text/css" href="/css/blocks/log-in.css">
 	<link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/log-in.css">
 </head>
 <body>
 

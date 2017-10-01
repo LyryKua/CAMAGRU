@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo $title; ?></title>
-	<link rel="stylesheet" type="text/css" href="/css/blocks/sign-up.css">
     <link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
+	<link rel="stylesheet" type="text/css" href="/css/sign-up.css">
 </head>
 <body>
 

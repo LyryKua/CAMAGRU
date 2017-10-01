@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 	<?php endif; ?>
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
-	<link rel="stylesheet" type="text/css" href="/css/blocks/404.css">
+	<link rel="stylesheet" type="text/css" href="/css/404.css">
 </head>
 <body>
 

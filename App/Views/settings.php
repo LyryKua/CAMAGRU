@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title><?php echo $title; ?></title>
-	<link rel="stylesheet" type="text/css" href="/css/blocks/settings.css">
+	<link rel="stylesheet" type="text/css" href="/css/settings.css">
 	<link rel="stylesheet" type="text/css" href="/css/blocks/menu.css">
 </head>
 <body>
