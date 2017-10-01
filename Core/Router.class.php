@@ -126,15 +126,21 @@ class Router
 				if (preg_match('/action$/i', $action) == 0) {
 					$controller_object->$action();
 				} else {
-					throw new \Exception("Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method");
+//					throw new \Exception("Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method");
+					header('Location: /404');
+					exit();
 //					echo "Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method";
 				}
 			} else {
-				throw new \Exception ("Controller class $controller not found");
+//				throw new \Exception ("Controller class $controller not found");
+				header('Location: /404');
+				exit();
 //				echo "Controller class $controller not found";
 			}
 		} else {
-			throw new \Exception ('No route matched.', 404);
+//			throw new \Exception ('No route matched.', 404);
+			header('Location: /404');
+			exit();
 //			echo 'No route matched.';
 		}
 	}

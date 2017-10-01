@@ -9,31 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 	<?php endif; ?>
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
-	<style>
-		.pages {
-			display: flex;
-			/*align-items: center;*/
-			justify-content: center;
-		}
-
-		.pages > li a {
-			margin: 0 5px 20px;
-			text-decoration: none;
-			background: #f2f7e1;
-			color: #82b4b1;
-			padding: 10px;
-			display: block;
-			/*border-bottom: 1px solid #82b4b1;*/
-			transition: 0.5s all;
-			font-size: 14px;
-			border-radius: 4px;
-		}
-
-		li.middle a {
-			background: #82b4b1;
-			color: #f2f7e1;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="/css/blocks/index.css">
 </head>
 <body>
 

@@ -9,17 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/blocks/header.css">
 	<?php endif; ?>
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
-	<style>
-		article {
-			text-align: center;
-		}
-		h1 {
-			font-size: 84pt;
-		}
-		h2 {
-			font-size: 42pt;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="/css/blocks/404.css">
 </head>
 <body>
 

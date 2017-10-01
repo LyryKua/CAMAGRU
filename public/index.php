@@ -21,6 +21,7 @@ $url = trim($_SERVER['QUERY_STRING'], '/');
 
 // Adding routes to the routing table
 $router->add('', ['controller' => 'Post', 'action' => 'all']);
+$router->add('404', ['controller' => 'Error', 'action' => 'error404']);
 $router->add('post', ['controller' => 'Post', 'action' => 'all']);
 $router->add('user', ['controller' => 'User', 'action' => 'index']);
 $router->add('log-out', ['controller' => 'User', 'action' => 'logOut']);

@@ -5,38 +5,7 @@
 	<title><?php echo $title; ?></title>
 	<link rel="stylesheet" type="text/css" href="/css/blocks/menu.css">
 	<link rel="stylesheet" type="text/css" href="/css/html.css">
-	<style>
-		div.user_main {
-			display: flex;
-			margin-top: 122px;
-			position: relative;
-			z-index: 0;
-		}
-
-		div.user_main > div.avatar {
-			height: 152px;
-			width: 152px;
-			margin-left: 50px;
-			margin-bottom: 60px;
-			border-radius: 50%;
-			border: 3px solid #8cb3b1;
-		}
-
-		div.info {
-			margin-left: 70px;
-		}
-
-		h1.login {
-			font-size: 32px;
-			line-height: 40px;
-			font-weight: 200;
-			margin-bottom: 0;
-		}
-
-		h2.name {
-			font-weight: 600;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="/css/blocks/dashboard.css">
 </head>
 <body>
 
