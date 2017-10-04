@@ -33,15 +33,7 @@ class Post extends \Core\Controller
 	{
 		$args = array('title' => 'camagru | All Photos');
 		if (isset($_POST['comment']) && $_POST['comment'] != '') {
-			$text = htmlspecialchars($_POST['comment']);
-			CommentModel::insertComment($text, $_SESSION['logged_user']['user_id'], $_POST['photo_id']);
-			$this->sendNotification(
-				$_SESSION['logged_user']['user_id'],
-				'comment',
-				$_POST['photo_id']
-			);
-			header('Location: /' . $_SERVER['QUERY_STRING']);
-			exit();
+			$this->addComment($_POST['comment'], $_POST['photo_id']);
 		}
 		$counter = PhotoModel::countAllPhotos();
 		$max_page = ceil($counter / 10);
@@ -94,15 +86,6 @@ class Post extends \Core\Controller
 			View::render('single-post.php', $args);
 		} else {
 			View::render('404.php', $args);
-		}
-	}
-
-	private function sendNotification($user_id, $text, $photo_id)
-	{
-		if ($text == 'comment') {
-			NotificationsModel::insertNotification($user_id, ' commented your photo.', $photo_id);
-		} elseif ($text == 'like') {
-			NotificationsModel::insertNotification($user_id, ' liked your photo.', $photo_id);
 		}
 	}
 }

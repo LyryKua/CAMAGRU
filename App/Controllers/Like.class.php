@@ -29,6 +29,8 @@ class Like extends \Core\Controller
 				$_SESSION['logged_user']['user_id'],
 				' liked your photo.',
 				$_POST['photo_id']);
+			$to = NotificationsModel::getEmailForNotification($_POST['photo_id'])['email'];
+			$this->sendNotificationToEmail($to, ' liked your photo.', $_SESSION['logged_user']['login']);
 		} elseif (LikeModel::index($_SESSION['logged_user']['user_id'], $_POST['photo_id']) === false) {
 			LikeModel::delItem($_SESSION['logged_user']['user_id'], $_POST['photo_id']);
 			PhotoModel::dislike($_POST['photo_id']);

@@ -213,7 +213,7 @@ class Authorization extends \Core\Controller
 				</head>
 				<body>
 				<p>Hello, <b>@" . $login . "</b>!</p>
-				<p>Help us secure your <a href='" . $_SERVER['HTTP_HOST'] . "' title='camagru'>camagru</a> account by verifying your email
+				<p>Help us secure your <a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "' title='camagru'>camagru</a> account by verifying your email
 					address (" . $email . "). This lets you access all of camagru's features.</p>
 				<p><a href='" . $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] . "/verification/click?action=registration&user=" . $email . "&key=" . $active_hash . "'>Verify email address</a></p>
 				<hr>

@@ -64,7 +64,8 @@ class NotificationsModel extends \Core\Model
 		$row = false;
 		try {
 			$db = static::getDB();
-			$sql = 'SELECT `users`.`login`, `notifications`.`text`, `notifications`.`photo`
+			$sql = '
+			SELECT `users`.`login`, `notifications`.`text`, `notifications`.`photo`
 			FROM `photos`
 			JOIN `notifications`
 			ON `photos`.`photo_id` = `notifications`.`photo`
@@ -100,5 +101,27 @@ class NotificationsModel extends \Core\Model
 		} catch (\PDOException $e) {
 			$e->getMessage();
 		}
+	}
+
+	public static function getEmailForNotification($photo_id)
+	{
+		$to = false;
+		try {
+			$db = static::getDB();
+			$sql = '
+			SELECT `users`.`login`, `users`.`email`
+			FROM `photos`
+			JOIN `users`
+			ON `photos`.`user_id` = `users`.`user_id`
+			WHERE `photos`.`photo_id` = :photo_id;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':photo_id', $photo_id);
+			$stmt->execute();
+			$to = $stmt->fetch(\PDO::FETCH_ASSOC);
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+		return ($to);
 	}
 }

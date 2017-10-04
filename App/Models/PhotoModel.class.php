@@ -39,6 +39,22 @@ class PhotoModel extends \Core\Model
 		}
 	}
 
+	public static function deletePhoto($photo_id)
+	{
+		try {
+			$db = static::getDB();
+			$sql = '
+			DELETE FROM `photos`
+			WHERE `photo_id` = :photo_id;
+			';
+			$stmt = $db->prepare($sql);
+			$stmt->bindParam(':photo_id', $photo_id);
+			$stmt->execute();
+		} catch (\PDOException $e) {
+			$e->getMessage();
+		}
+	}
+
 	/**
 	 * getAllPhotos()
 	 *

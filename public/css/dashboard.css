@@ -28,3 +28,17 @@ h1.login {
 h2.name {
 	font-weight: 600;
 }
+
+div.del {
+	width: 30px;
+	height: 30px;
+	opacity: 0.2;
+	background-image: url(/icons/delete.png);
+	background-size: cover;
+}
+
+div.del:hover {
+	opacity: 1;
+	cursor: pointer;
+	transition: 0.5s all;
+}

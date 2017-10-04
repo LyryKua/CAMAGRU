@@ -8,6 +8,9 @@
 
 namespace Core;
 
+use App\Models\CommentModel;
+use App\Models\NotificationsModel;
+
 /**
  * Class Controller
  *
@@ -55,7 +58,9 @@ abstract class Controller
 				$this->after();
 			}
 		} else {
-			throw new \Exception("Method $method not found in controller " . get_class($this));
+//			throw new \Exception("Method $method not found in controller " . get_class($this));
+			header('Location: /404');
+			exit();
 //			echo "Method $method not found in controller " . get_class($this);
 		}
 	}
@@ -80,7 +85,51 @@ abstract class Controller
 		return false;
 	}
 
-//	protected function getNotifications()
+	protected function addComment($comment, $photo_id)
+	{
+		$text = htmlspecialchars($comment);
+		CommentModel::insertComment($text, $_SESSION['logged_user']['user_id'], $photo_id);
+		$this->sendNotification(
+			$_SESSION['logged_user']['user_id'],
+			'comment',
+			$photo_id
+		);
+		$to = NotificationsModel::getEmailForNotification($_POST['photo_id'])['email'];
+		$this->sendNotificationToEmail($to, ' commented your photo.', $_SESSION['logged_user']['login']);
+		header('Location: /' . $_SERVER['QUERY_STRING']);
+		exit();
+	}
+
+	protected function sendNotification($user_id, $text, $photo_id)
+	{
+		$to = NotificationsModel::getEmailForNotification($photo_id)['email'];
+		var_dump($to);
+		if ($text == 'comment') {
+			NotificationsModel::insertNotification($user_id, ' commented your photo.', $photo_id);
+			$this->sendNotificationToEmail($to['email'], ' commented your photo.', $_SESSION['logged_user']['login']);
+		} elseif ($text == 'like') {
+			NotificationsModel::insertNotification($user_id, ' liked your photo.', $photo_id);
+			$this->sendNotificationToEmail($to['email'], ' liked your photo.', $_SESSION['logged_user']['login']);
+		}
+	}
+
+	protected function sendNotificationToEmail($to, $text, $who)
+	{
+		$who .= $text;
+		$message = "
+				<html lang='en'>
+				<head>
+					<title>Notification</title>
+				</head>
+				<body>
+				<h1>$who</h1>
+				</body>
+				</html>
+			";
+		$headers = "Content-type: text/html; charset=\"UTF-8\"\r\n";
+		$headers .= "From: camagru <lyryk.ua@gmail.com> \r";
+		mail($to, 'Notification', $message, $headers);
+	}
 
 	/**
 	 * Before filter - called before an action method.

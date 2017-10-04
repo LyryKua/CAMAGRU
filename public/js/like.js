@@ -28,8 +28,6 @@ function addLike(elem) {
 		}
 	};
 	xmlhttp.send("photo_id=" + elem.dataset.photoId);
-	// console.log(elem.style.backgroundPositionX);
 	var data = getComputedStyle(elem);
 	elem.style.backgroundPositionX = (data.backgroundPositionX === '-50px') ? '-25px' : '-50px';
-	// console.log(data.backgroundPositionX === '-50px');
 }

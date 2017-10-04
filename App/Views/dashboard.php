@@ -11,7 +11,7 @@
 
 <?php require_once('blocks/menu.php'); ?>
 
-<section class="content">
+<section class="content" id="main_section">
 
 	<div class="user_main">
 		<div style="background: url(<?php echo $_SESSION['logged_user']['avatar']; ?>);
@@ -25,7 +25,7 @@
 	</div>
 
 	<?php foreach ($photos as $item) : ?>
-		<article>
+		<article id="article<?php echo $item['photo_id']; ?>">
 			<header class="avatar_login">
 				<div class="avatar">
 					<img src="/<?php echo $_SESSION['logged_user']['avatar']; ?>">
@@ -33,6 +33,7 @@
 				<div class="login">
 					<span class="login"><?php echo $_SESSION['logged_user']['login']; ?></span>
 				</div>
+				<div class="del" onclick="del(<?php echo $item['photo_id']; ?>)"></div>
 			</header>
 			<a href="/post/<?php echo $item['photo_id']; ?>">
 				<div class="photo">
@@ -79,6 +80,7 @@
 		}
 	</script>
 	<script src="js/like.js"></script>
+	<script src="js/del.js"></script>
 </section>
 </body>
 </html>

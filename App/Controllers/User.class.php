@@ -72,6 +72,9 @@ class User extends \Core\Controller
 		if (isset($_POST['submit'])) {
 			$dir = "uploads/" . $_SESSION['logged_user']['login'];
 			$img = $dir . '/' . time() . ".png";
+			if (!file_exists('uploads')){
+				mkdir('uploads');
+			}
 			if (!file_exists($dir)) {
 				mkdir($dir);
 			}
@@ -127,6 +130,9 @@ class User extends \Core\Controller
 			}
 			if ($_FILES['avatar']['name'] != '') {
 				$dir = "uploads/" . $_SESSION['logged_user']['login'];
+				if (!file_exists('uploads')){
+					mkdir('uploads');
+				}
 				if (!file_exists($dir)) {
 					mkdir($dir);
 				}
@@ -187,6 +193,18 @@ class User extends \Core\Controller
 		}
 		$args['notification'] = NotificationsModel::getNotificationForUser($_SESSION['logged_user']['user_id']);
 		View::render('notifications.php', $args);
+	}
+
+	public function deletePostAction()
+	{
+		if (isset($_POST['photo_id'])) {
+			$path = PhotoModel::getPhotoByID($_POST['photo_id'])['path'];
+			PhotoModel::deletePhoto($_POST['photo_id']);
+			$this->deletePhoto($path);
+			echo $path;
+		} else {
+			header('Location: /404');
+		}
 	}
 
 	private function checkFirstnameAndLastname($name)
